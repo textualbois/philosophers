@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/20 19:59:03 by isemin           ###   ########.fr       */
+/*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
+/*   Updated: 2024/06/20 20:14:01 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /**
- * @brief spwans threads (philosophers) that interact with each other certain parameters
+ * @brief malloc parameters
  *
  * @param argc
  * @param argv[1] number_of_philosophers
@@ -21,17 +21,23 @@
  * @param argv[3] time_to_eat
  * @param argv[4] time_to_sleep
  * @param argv[5] eating_limit (optional)
- * @return int
+ * @return ptr to t_parameters
  */
-int	main(int argc, char **argv)
+t_parameters	*init_parameters(int argc, char **argv)
 {
 	t_parameters	*params;
-	t_philosopher	*head;
 
-	if (bad_input(argc, argv))
-		return (1);
-	params = init_parameters(argc, argv);
-	head = init_threads(argc, argv);
-	run_routine();
-
+	params = malloc(sizeof(t_parameters));
+	if (params != NULL)
+	{
+		params->philosopher_count = ft_atoi(argv[1]);
+		params->time_to_die = ft_atoi(argv[2]);
+		params->time_to_eat = ft_atoi(argv[3]);
+		params->time_to_sleep = ft_atoi(argv[4]);
+		if (argc == 6)
+			params->eating_limit = ft_atoi(argv[5]);
+		else
+			params->eating_limit = -1;
+	}
+	return (params);
 }

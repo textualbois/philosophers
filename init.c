@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/20 20:14:01 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/21 15:09:42 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,61 @@ t_parameters	*init_parameters(int argc, char **argv)
 			params->eating_limit = -1;
 	}
 	return (params);
+}
+
+t_philosopher	*init_philosopher(int count, t_parameters *params)
+{
+	t_philosopher	*philosopher;
+
+	philosopher = malloc(sizeof(t_philosopher));
+	if (philosopher != NULL)
+	{
+		philosopher->thread = malloc(sizeof(pthread_t));
+		philosopher->left_fork = NULL;
+		philosopher->right_fork = NULL;
+		philosopher->status = THINKING;
+		philosopher->times_eaten = 0;
+		philosopher->name = ft_atoi(count);
+		philosopher->meta = params;
+	}
+	return (philosopher);
+}
+
+t_fork	*init_fork(t_parameters *params, t_philosopher *owner)
+{
+	t_fork	*fork;
+
+	fork = malloc(sizeof(t_fork));
+	if (fork != NULL)
+	{
+		fork->left_thread = owner;
+		fork->right_thread = NULL;
+		fork->mutex = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(fork->mutex, NULL);
+	}
+	return (fork);
+}
+
+t_philosopher	*init_threads(t_parameters *params)
+{
+	t_philosopher	*head;
+	t_philosopher	*temp;
+	int				count;
+
+	count = 1;
+	head = init_philosopher(count, params);
+	head->right_fork = init_fork(params, head);
+	count++;
+	temp = head;
+	while (count <= params->philosopher_count)
+	{
+		temp->right_fork->right_thread = init_philosopher(count, params);
+		temp->right_fork->right_thread->left_fork = temp->right_fork;
+		temp = temp->right_fork->right_thread;
+		temp->right_fork = init_fork(params, temp);
+		count++;
+	}
+	head->left_fork = temp->right_fork;
+	temp->right_fork->right_thread = head;
+	return (head);
 }

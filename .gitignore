@@ -1,6 +1,6 @@
 # project executables
-philo
-philo_bonus
+philo/philo
+philo/philo_bonus
 
 # macOS system files
 .DS_Store

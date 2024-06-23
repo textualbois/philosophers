@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_activities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/23 02:17:26 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/23 19:24:33 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,22 @@ void	think(t_philosopher *philo)
 
 void	pick_up_forks(t_philosopher *philo)
 {
-	//if (philo->name[0] == '1' && philo->name[1] == '\0')
-	if (time_now - philo->last_meal_ms > philo->meta->time_to_die)
+	if (has_starved(philo))
 		philo_dead(philo);
-	
+	pthread_mutex_lock(philo->left_fork->mutex);
+	if (has_starved(philo))
+		philo_dead(philo);
+	printf("%i %s has taken a fork\n", time, philo->name);
+	if (has_starved(philo))
+		philo_dead(philo);
+	pthread_mutex_lock(philo->right_fork->mutex);
+	if (has_starved(philo))
+		philo_dead(philo);
+	printf("%i %s has taken a fork\n", time, philo->name);
+	if (has_starved(philo))
+		philo_dead(philo);
+	pthread_mutex_lock(philo->right_fork->mutex);
+
 
 }
 

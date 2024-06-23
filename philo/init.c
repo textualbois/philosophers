@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/21 15:09:42 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/23 17:38:24 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_parameters	*init_parameters(int argc, char **argv)
 			params->eating_limit = ft_atoi(argv[5]);
 		else
 			params->eating_limit = -1;
+		params->start_time = gettimeofday(NULL, NULL);
 	}
 	return (params);
 }

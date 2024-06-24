@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/23 17:38:24 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/24 03:11:07 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->right_fork = NULL;
 		philosopher->status = THINKING;
 		philosopher->times_eaten = 0;
-		philosopher->name = ft_atoi(count);
+		philosopher->id = ft_atoi(count);
 		philosopher->meta = params;
 	}
 	return (philosopher);

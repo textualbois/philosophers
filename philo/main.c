@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/20 19:59:03 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/24 01:27:11 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	if (bad_input(argc, argv))
 		return (1);
 	params = init_parameters(argc, argv);
-	head = init_threads(argc, argv);
-	run_routine();
+	head = init_threads(params);
+	run_routines(head);
 
 }

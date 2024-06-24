@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 01:27:11 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/25 00:08:31 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	bad_input(int argc, char **argv)
+{
+	if (argc > 4 && argv[3] != NULL)
+		return (0);
+	else
+		return (1);
+}
 
 /**
  * @brief spwans threads (philosophers) that interact with each other certain parameters

@@ -1,23 +1,22 @@
 NAME = philo
 BONUS_NAME = philo_bonus
 
-DIR_ACTIVITIES = activities/
+DIR_ACTIVITIES = ./activities/
 SRCS_ACTIVITIES = death.c philo_activities.c
-DIR_PRINTS = prints/
+DIR_PRINTS = ./prints/
 SRCS_PRINTS = print_gate.c print_statements.c
-DIR_ROUTINE = routine/
+DIR_ROUTINE = ./routine/
 SRCS_ROUTINE = routine.c
-DIR_UTILS = utils/
+DIR_UTILS = ./utils/
 SRCS_UTILS = time.c utils.c
+DIR_OTHER = ./
 SRCS_OTHER = init.c main.c
-
-
 
 SRCS = $(addprefix $(DIR_ACTIVITIES), $(SRCS_ACTIVITIES)) \
 		$(addprefix $(DIR_PRINTS), $(SRCS_PRINTS)) \
 		$(addprefix $(DIR_ROUTINE), $(SRCS_ROUTINE)) \
 		$(addprefix $(DIR_UTILS), $(SRCS_UTILS)) \
-		$(SRCS_OTHER)
+		$(addprefix $(DIR_OTHER), $(SRCS_OTHER))
 
 SRCS_NO_PATH = $(SRCS_ACTIVITIES) $(SRCS_PRINTS) $(SRCS_ROUTINE) $(SRCS_UTILS) $(SRCS_OTHER)
 

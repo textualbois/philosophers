@@ -1,15 +1,15 @@
 NAME = philo
 BONUS_NAME = philo_bonus
 
-DIR_ACTIVITIES = ./activities/
+DIR_ACTIVITIES = philo_activities/
 SRCS_ACTIVITIES = death.c philo_activities.c
-DIR_PRINTS = ./prints/
+DIR_PRINTS = prints/
 SRCS_PRINTS = print_gate.c print_statements.c
-DIR_ROUTINE = ./routine/
+DIR_ROUTINE = routine/
 SRCS_ROUTINE = routine.c
-DIR_UTILS = ./utils/
+DIR_UTILS = utils/
 SRCS_UTILS = time.c utils.c
-DIR_OTHER = ./
+DIR_OTHER =
 SRCS_OTHER = init.c main.c
 
 SRCS = $(addprefix $(DIR_ACTIVITIES), $(SRCS_ACTIVITIES)) \
@@ -25,13 +25,17 @@ B_SRCS = $(SRCS)
 MAIN_SRCS = $(SRCS)
 OBJ_DIR = ./obj/
 
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS_NO_PATH:.c=.o))
+INCLUDES_FLAG = -I .
+
+SANITIZER = -g -fsanitize=thread
+
+OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 B_OBJS = $(addprefix $(OBJ_DIR), $(B_SRCS:.c=.o))
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES_FLAG)
 
 all: $(NAME)
 	@echo "all DONE"
@@ -42,15 +46,20 @@ $(NAME): ${OBJ_DIR} $(OBJS)
 bonus: ${OBJ_DIR} $(B_OBJS)
 	$(CC) $(CFLAGS) $(B_OBJS) -o ${BONUS_NAME}
 
-$(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -g -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)philo_activities
+	mkdir -p $(OBJ_DIR)prints
+	mkdir -p $(OBJ_DIR)routine
+	mkdir -p $(OBJ_DIR)utils
 	@echo "OBJ_DIR DONE"
 
 clean:
-	rm -f $(OBJS) $(B_OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)

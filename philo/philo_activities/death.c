@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 03:00:08 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/25 00:06:28 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "philo.h"
 
 int	has_starved(t_philosopher *philo)
 {
@@ -20,4 +20,5 @@ int	has_starved(t_philosopher *philo)
 int	philo_dead(t_philosopher *philo)
 {
 	print_action(DEATH, philo);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 03:11:07 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/24 20:13:28 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_parameters	*init_parameters(int argc, char **argv)
 			params->eating_limit = ft_atoi(argv[5]);
 		else
 			params->eating_limit = -1;
-		params->start_time = gettimeofday(NULL, NULL);
+		params->start_time = time_in_ms();
 	}
 	return (params);
 }
@@ -55,7 +55,8 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->right_fork = NULL;
 		philosopher->status = THINKING;
 		philosopher->times_eaten = 0;
-		philosopher->id = ft_atoi(count);
+		philosopher->last_meal_ms = params->start_time;
+		philosopher->id = count;
 		philosopher->meta = params;
 	}
 	return (philosopher);
@@ -65,6 +66,7 @@ t_fork	*init_fork(t_parameters *params, t_philosopher *owner)
 {
 	t_fork	*fork;
 
+	(void) params;
 	fork = malloc(sizeof(t_fork));
 	if (fork != NULL)
 	{

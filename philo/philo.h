@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 03:15:42 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/24 22:01:58 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 
 # include <stdio.h>
 # include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <sys/time.h>
+
 
 # define MAX_PHILO 200
 
@@ -25,25 +28,16 @@
 # define TAKING_FORK 4
 # define DEATH 0
 
-typedef struct s_parameters {
-	long	philosopher_count;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	eating_limit;
-	long	start_time;
-}	t_parameters;
+typedef struct s_philosopher	t_philosopher;
 
-typedef struct s_philosopher {
-	pthread_t		*thread;
-	t_fork			*left_fork;
-	t_fork			*right_fork;
-	int				status;
-	int				times_eaten;
-	long			last_meal_ms;
-	int				id;
-	t_parameters	*meta;
-}	t_philosopher;
+typedef struct s_parameters {
+	int	philosopher_count;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	eating_limit;
+	int	start_time;
+}	t_parameters;
 
 typedef struct s_fork {
 	t_philosopher	*left_thread;
@@ -51,12 +45,23 @@ typedef struct s_fork {
 	pthread_mutex_t	*mutex;
 }	t_fork;
 
+struct s_philosopher {
+	pthread_t		*thread;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	int				status;
+	int				times_eaten;
+	int				last_meal_ms;
+	int				id;
+	t_parameters	*meta;
+};
+
 // ./philo/philo_activities/philo_activities.c
 void			think(t_philosopher *philo);
 void			pick_up_forks(t_philosopher *philo);
 void			eat(t_philosopher *philo);
 void			put_down_forks(t_philosopher *philo);
-void			sleep(t_philosopher *philo);
+void			philo_sleep(t_philosopher *philo);
 
 // ./philo/philo_activities/death.c
 int				has_starved(t_philosopher *philo);
@@ -74,6 +79,17 @@ void			print_death(t_philosopher *philo);
 
 // ./philo/routine/routine.c
 void			run_routines(t_philosopher *head);
+
+// ./philo/utils/time.c
+int				time_from_start(t_parameters *params);
+int				time_without_food(t_philosopher *philo);
+int				time_in_ms(void);
+void			sleep_ms(int ms);
+
+// ./philo/utils/utils.c
+int				ft_isdigit(int c);
+long			ft_atol(const char *nptr);
+int				ft_atoi(const char *nptr);
 
 // ./philo/init.c
 t_parameters	*init_parameters(int argc, char **argv);

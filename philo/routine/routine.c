@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/24 03:11:09 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/25 00:05:22 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "philo.h"
 
 static void	*philosopher_routine(void *arg)
 {
-	t_philosopher *phil;
+	t_philosopher	*phil;
 
 	phil = (t_philosopher *) arg;
 	while (1)
@@ -23,7 +23,7 @@ static void	*philosopher_routine(void *arg)
 		pick_up_forks(phil);
 		eat(phil);
 		put_down_forks(phil);
-		sleep(phil);
+		philo_sleep(phil);
 	}
 }
 

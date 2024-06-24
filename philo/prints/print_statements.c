@@ -3,51 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   print_statements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:49:56 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 01:50:57 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/24 19:50:52 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "philo.h"
 
 void	print_thinking(t_philosopher *philo)
 {
-	long	timestamp;
+	int	timestamp;
 
 	timestamp = time_from_start(philo->meta);
-	printf("%ld %d is thinking\n", timestamp, philo->id);
+	printf("%d %d is thinking\n", timestamp, philo->id);
 }
 
 void	print_taking_fork(t_philosopher *philo)
 {
-	long	timestamp;
+	int	timestamp;
 
 	timestamp = time_from_start(philo->meta);
-	printf("%ld %d has taken a fork\n", timestamp, philo->id);
+	printf("%d %d has taken a fork\n", timestamp, philo->id);
 }
 
 void	print_eating(t_philosopher *philo)
 {
-	long	timestamp;
+	int	timestamp;
 
 	timestamp = time_from_start(philo->meta);
-	printf("%ld %d is eating\n", timestamp, philo->id);
+	printf("%d %d is eating\n", timestamp, philo->id);
 }
 
 void	print_sleeping(t_philosopher *philo)
 {
-	long	timestamp;
+	int	timestamp;
 
 	timestamp = time_from_start(philo->meta);
-	printf("%ld %d is sleeping\n", timestamp, philo->id);
+	printf("%d %d is sleeping\n", timestamp, philo->id);
 }
 
 void	print_death(t_philosopher *philo)
 {
-	long	timestamp;
+	int	timestamp;
 
 	timestamp = time_from_start(philo->meta);
-	printf("%ld %d died\n", timestamp, philo->id);
+	printf("%d %d died\n", timestamp, philo->id);
 }

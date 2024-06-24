@@ -6,7 +6,7 @@
 /*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/23 01:44:28 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/24 03:11:09 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	*philosopher_routine(void *arg)
 	}
 }
 
-void run_routines(t_philosopher *head)
+void	run_routines(t_philosopher *head)
 {
 	t_philosopher	*temp;
 

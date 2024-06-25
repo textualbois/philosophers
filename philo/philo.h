@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 22:01:58 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/25 20:15:28 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,20 @@
 # define THINKING 3
 # define TAKING_FORK 4
 # define DEATH 0
+# define GREEN 1
+# define RED -1
 
 typedef struct s_philosopher	t_philosopher;
 
 typedef struct s_parameters {
-	int	philosopher_count;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	eating_limit;
-	int	start_time;
+	int				philosopher_count;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				eating_limit;
+	int				start_time;
+	int				light;
+	pthread_mutex_t	*global_mtx;
 }	t_parameters;
 
 typedef struct s_fork {

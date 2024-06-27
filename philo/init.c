@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/27 18:58:36 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/28 00:34:20 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,27 @@ t_parameters	*init_parameters(int argc, char **argv)
 {
 	t_parameters	*params;
 
-	params = calloc(1, sizeof(t_parameters));
-	if (params != NULL)
+	params = NULL;
+	if (slim_calloc((void**)&params, sizeof(t_parameters)) == 0)
 	{
 		params->philosopher_count = ft_atoi(argv[1]);
 		params->time_to_die = ft_atoi(argv[2]);
 		params->time_to_eat = ft_atoi(argv[3]);
 		params->time_to_sleep = ft_atoi(argv[4]);
-		if (argc == 6)
-			params->eating_limit = ft_atoi(argv[5]);
-		else
-			params->eating_limit = -1;
+		params->eating_limit = set_eating_limit(argc, argv);
 		params->light = GREEN;
+		if (slim_malloc((void**)&(params->watcher), sizeof(pthread_t)) != 0)
+		{
+			free(params);
+			return (NULL);
+		}
+		else if (init_mutex(&(params->global_mtx)) != 0)
+		{
+			free(params);
+			free(params->watcher);
+			return (NULL);
+		}
 		params->start_time = time_in_ms();
-		params->global_mtx = malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(params->global_mtx, NULL);
-		params->watcher = malloc(sizeof(pthread_t));
 	}
 	return (params);
 }
@@ -55,6 +60,11 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 	if (philosopher != NULL)
 	{
 		philosopher->thread = calloc(1, sizeof(pthread_t));
+		if (philosopher->thread == NULL)
+		{
+			free(philosopher);
+			return (NULL);
+		}
 		philosopher->left_fork = NULL;
 		philosopher->right_fork = NULL;
 		philosopher->status = THINKING;
@@ -64,7 +74,6 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->meta = params;
 		philosopher->order = count % 2;
 	}
-	//printf("philo light = %i, %s\n", philosopher->meta->light, philosopher->meta->light == GREEN ? "GREEN" : "RED");
 	return (philosopher);
 }
 
@@ -78,8 +87,11 @@ t_fork	*init_fork(t_parameters *params, t_philosopher *owner)
 	{
 		fork->left_thread = owner;
 		fork->right_thread = NULL;
-		fork->mutex = malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(fork->mutex, NULL);
+		if (init_mutex(&(fork->mutex)) != 0)
+		{
+			free(fork);
+			return (NULL);
+		}
 	}
 	return (fork);
 }
@@ -95,19 +107,31 @@ t_philosopher	*init_threads(t_parameters *params)
 	head->right_fork = init_fork(params, head);
 	count++;
 	temp = head;
-	while (count <= params->philosopher_count)
+	while (count <= params->philosopher_count && temp != NULL)
 	{
-		temp->right_fork->right_thread = init_philosopher(count, params);
-		temp->right_fork->right_thread->left_fork = temp->right_fork;
-		temp->next = temp->right_fork->right_thread;
-		temp = temp->next;
-		temp->right_fork = init_fork(params, temp);
-		temp->last = temp->left_fork->left_thread;
-		count++;
+		temp = init_and_join(temp, &count, params);
 	}
+	if (temp == NULL)
+		return (full_clean(head));
 	head->left_fork = temp->right_fork;
 	temp->right_fork->right_thread = head;
 	temp->next = head;
 	head->last = temp;
 	return (head);
+}
+
+t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params)
+{
+	temp->right_fork->right_thread = init_philosopher(*count, params);
+	if (temp->right_fork->right_thread == NULL)
+		return (NULL);
+	temp->right_fork->right_thread->left_fork = temp->right_fork;
+	temp->next = temp->right_fork->right_thread;
+	temp = temp->next;
+	temp->right_fork = init_fork(params, temp);
+	if (temp->right_fork == NULL)
+		return (clean_philo_return_next(temp));
+	temp->last = temp->left_fork->left_thread;
+	*count = *count + 1;
+	return (temp);
 }

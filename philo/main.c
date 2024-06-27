@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/25 00:08:31 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/27 23:42:39 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,26 @@ int	main(int argc, char **argv)
 {
 	t_parameters	*params;
 	t_philosopher	*head;
+	int				*res;
 
+	res = NULL;
+	head = NULL;
 	if (bad_input(argc, argv))
 		return (1);
 	params = init_parameters(argc, argv);
-	head = init_threads(params);
-	run_routines(head);
-
+	if (params != NULL)
+	{
+		head = init_threads(params);
+		if (head != NULL)
+		{
+			res = run_routines(head);
+			if (res == NULL)
+				full_clean(head);
+		}
+		else
+			return (1);
+	}
+	else
+		return (1);
+	return (0);
 }

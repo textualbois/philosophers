@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/27 18:55:57 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/27 23:56:32 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
-
+# include <string.h>
 
 # define MAX_PHILO 200
 
@@ -105,5 +105,17 @@ t_parameters	*init_parameters(int argc, char **argv);
 t_philosopher	*init_philosopher(int count, t_parameters *params);
 t_fork			*init_fork(t_parameters *params, t_philosopher *owner);
 t_philosopher	*init_threads(t_parameters *params);
+t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params);
+
+// ./philo/init_helper.c
+int				init_mutex(pthread_mutex_t **res);
+int				slim_malloc(void **dst, size_t size);
+int				slim_calloc(void **dst, size_t size);
+int				set_eating_limit(int argc, char **argv);
+
+// ./philo/clean/main_clean.c
+t_philosopher	*clean_philo_return_previous(t_philosopher *philo);
+t_philosopher	*clean_philo_return_next(t_philosopher *philo);
+void			*full_clean(t_philosopher *head);
 
 #endif

@@ -9,14 +9,17 @@ DIR_ROUTINE = routine/
 SRCS_ROUTINE = routine.c
 DIR_UTILS = utils/
 SRCS_UTILS = time.c utils.c
+DIR_CLEAN = clean/
+SRCS_CLEAN = main_clean.c
 DIR_OTHER =
-SRCS_OTHER = init.c main.c
+SRCS_OTHER = init.c main.c init_helper.c
 
 SRCS = $(addprefix $(DIR_ACTIVITIES), $(SRCS_ACTIVITIES)) \
 		$(addprefix $(DIR_PRINTS), $(SRCS_PRINTS)) \
 		$(addprefix $(DIR_ROUTINE), $(SRCS_ROUTINE)) \
 		$(addprefix $(DIR_UTILS), $(SRCS_UTILS)) \
-		$(addprefix $(DIR_OTHER), $(SRCS_OTHER))
+		$(addprefix $(DIR_OTHER), $(SRCS_OTHER)) \
+		$(addprefix $(DIR_CLEAN), $(SRCS_CLEAN))
 
 SRCS_NO_PATH = $(SRCS_ACTIVITIES) $(SRCS_PRINTS) $(SRCS_ROUTINE) $(SRCS_UTILS) $(SRCS_OTHER)
 
@@ -56,6 +59,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)prints
 	mkdir -p $(OBJ_DIR)routine
 	mkdir -p $(OBJ_DIR)utils
+	mkdir -p $(OBJ_DIR)clean
 	@echo "OBJ_DIR DONE"
 
 clean:

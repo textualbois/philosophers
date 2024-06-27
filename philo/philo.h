@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/25 20:15:28 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/26 18:06:42 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_parameters {
 	int				start_time;
 	int				light;
 	pthread_mutex_t	*global_mtx;
+	pthread_t		*watcher;
 }	t_parameters;
 
 typedef struct s_fork {
@@ -51,6 +52,8 @@ typedef struct s_fork {
 
 struct s_philosopher {
 	pthread_t		*thread;
+	t_philosopher	*next;
+	t_philosopher	*last;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	int				status;
@@ -82,7 +85,7 @@ void			print_sleeping(t_philosopher *philo);
 void			print_death(t_philosopher *philo);
 
 // ./philo/routine/routine.c
-void			run_routines(t_philosopher *head);
+void			*run_routines(t_philosopher *head);
 
 // ./philo/utils/time.c
 int				time_from_start(t_parameters *params);

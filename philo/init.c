@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 20:13:28 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/26 18:04:48 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_parameters	*init_parameters(int argc, char **argv)
 {
 	t_parameters	*params;
 
-	params = malloc(sizeof(t_parameters));
+	params = calloc(1, sizeof(t_parameters));
 	if (params != NULL)
 	{
 		params->philosopher_count = ft_atoi(argv[1]);
@@ -38,7 +38,11 @@ t_parameters	*init_parameters(int argc, char **argv)
 			params->eating_limit = ft_atoi(argv[5]);
 		else
 			params->eating_limit = -1;
+		params->light = GREEN;
 		params->start_time = time_in_ms();
+		params->global_mtx = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(params->global_mtx, NULL);
+		params->watcher = malloc(sizeof(pthread_t));
 	}
 	return (params);
 }
@@ -50,7 +54,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 	philosopher = malloc(sizeof(t_philosopher));
 	if (philosopher != NULL)
 	{
-		philosopher->thread = malloc(sizeof(pthread_t));
+		philosopher->thread = calloc(1, sizeof(pthread_t));
 		philosopher->left_fork = NULL;
 		philosopher->right_fork = NULL;
 		philosopher->status = THINKING;
@@ -59,6 +63,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->id = count;
 		philosopher->meta = params;
 	}
+	//printf("philo light = %i, %s\n", philosopher->meta->light, philosopher->meta->light == GREEN ? "GREEN" : "RED");
 	return (philosopher);
 }
 
@@ -93,11 +98,15 @@ t_philosopher	*init_threads(t_parameters *params)
 	{
 		temp->right_fork->right_thread = init_philosopher(count, params);
 		temp->right_fork->right_thread->left_fork = temp->right_fork;
-		temp = temp->right_fork->right_thread;
+		temp->next = temp->right_fork->right_thread;
+		temp = temp->next;
 		temp->right_fork = init_fork(params, temp);
+		temp->last = temp->left_fork->left_thread;
 		count++;
 	}
 	head->left_fork = temp->right_fork;
 	temp->right_fork->right_thread = head;
+	temp->next = head;
+	head->last = temp;
 	return (head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_activities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/24 22:34:09 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/26 16:30:59 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,47 @@
 
 void	think(t_philosopher *philo)
 {
+	// printf("philo in think\n");
 	print_action(THINKING, philo);
 }
 
 void	pick_up_forks(t_philosopher *philo)
 {
-	if (has_starved(philo))
-		philo_dead(philo);
-
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(philo->left_fork->mutex); // this can take time
-		if (has_starved(philo))	// so check again if philo starved
-			philo_dead(philo);
+		// printf("philo %i wants to do an action\n", philo->id);
+		//pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
+		pthread_mutex_lock(philo->left_fork->mutex); // get in queue to get a fork
+		pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
 		print_action(TAKING_FORK, philo); // this also can take time
+		pthread_mutex_unlock(philo->meta->global_mtx); // signal watcher that you finished an action and he should check deaths
 	}
 
-	if (has_starved(philo))	// so check again if philo starved
-		philo_dead(philo);
-
-	pthread_mutex_lock(philo->right_fork->mutex); // this can also take time
-	if (has_starved(philo)) // so check again if starved
-		philo_dead(philo);
+	// printf("philo %i wants to do an action\n", philo->id);
+	// pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
+	pthread_mutex_lock(philo->right_fork->mutex); // get in queue to get a fork
+	pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
 	print_action(TAKING_FORK, philo); // this also can take time
+	pthread_mutex_unlock(philo->meta->global_mtx); // signal watcher that you finished an action and he should check deaths
 
 	if (philo->id % 2 != 0)
 	{
-		pthread_mutex_lock(philo->left_fork->mutex); // this can take time
-		if (has_starved(philo))	// so check again if philo starved
-			philo_dead(philo);
+		// printf("philo %i wants to do an action\n", philo->id);
+		// pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
+		pthread_mutex_lock(philo->left_fork->mutex); // get in queue to get a fork
+		pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
 		print_action(TAKING_FORK, philo);
+		pthread_mutex_unlock(philo->meta->global_mtx); // signal watcher that you finished an action and he should check deaths
 	}
 }
 
 void	eat(t_philosopher *philo)
 {
 	philo->last_meal_ms = time_in_ms();
+
+	pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
 	print_action(EATING, philo);
+	pthread_mutex_unlock(philo->meta->global_mtx); // signal watcher that you finished an action and he should check deaths
 	sleep_ms(philo->meta->time_to_eat);
 	philo->times_eaten += 1;
 }
@@ -63,6 +67,9 @@ void	put_down_forks(t_philosopher *philo)
 
 void	philo_sleep(t_philosopher *philo)
 {
+
+	pthread_mutex_lock(philo->meta->global_mtx); // signal watcher that you want to perform an action
 	print_action(SLEEPING, philo);
+	pthread_mutex_unlock(philo->meta->global_mtx); // signal watcher that you finished an action and he should check deaths
 	sleep_ms(philo->meta->time_to_sleep);
 }

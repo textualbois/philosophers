@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/26 18:04:48 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/27 18:58:36 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->last_meal_ms = params->start_time;
 		philosopher->id = count;
 		philosopher->meta = params;
+		philosopher->order = count % 2;
 	}
 	//printf("philo light = %i, %s\n", philosopher->meta->light, philosopher->meta->light == GREEN ? "GREEN" : "RED");
 	return (philosopher);

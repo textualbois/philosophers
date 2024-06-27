@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/26 18:05:22 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/27 18:27:32 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ static void	*philosopher_routine(void *arg)
 	t_philosopher	*phil;
 
 	phil = (t_philosopher *) arg;
-	// printf("routine for philo %i has started\n", phil->id);
+	pthread_mutex_lock(phil->meta->global_mtx);
+	pthread_mutex_unlock(phil->meta->global_mtx);
+	if (phil->id % 2 == 0)
+		usleep(5);
+	//printf("routine for philo %i has started\n", phil->id);
 	while (1)
 	{
 		think(phil);
@@ -68,12 +72,13 @@ void	*run_routines(t_philosopher *head)
 
 	temp = head;
 	if (pthread_create(temp->thread, NULL, philosopher_routine, (void *)temp) != 0)
-		return (NULL);//return (clean_up(0)); // some cleanup 
+		return (NULL);//return (clean_up(0)); // some cleanup
 	temp = temp->next;
 	// printf("head:       %p\nright philo %p <- through head\nright philo %p <- through temp (shoould be larger)\n left philo %p <- through head\n left philo %p <- through temp - should be same as head philo\n",
 	// 		head, head->next, temp->next,
 	// 		head->left_fork->left_thread, temp->left_fork->left_thread);
 	// printf("head adress %p\ntemp adress %p\n",head, temp);
+	pthread_mutex_lock(head->meta->global_mtx);
 	while (temp != head)
 	{
 		// printf("creating thread for philo id %i\n", temp->id);
@@ -83,8 +88,12 @@ void	*run_routines(t_philosopher *head)
 	}
 
 	if (pthread_create(head->meta->watcher, NULL, watcher_routine, (void *)head) != 0)
-		// return (clean_up(0)); // some cleanup
+		return (NULL);// return (clean_up(0)); // some cleanup
 
+	head->meta->start_time = time_in_ms();
+	pthread_mutex_unlock(head->meta->global_mtx);
+	pthread_join(*(head->meta->watcher), NULL);
+	return (NULL);
 	pthread_join(*(temp->thread), NULL);
 	temp = temp->next;
 	// printf("temp id is %i\n", temp->id);
@@ -94,6 +103,5 @@ void	*run_routines(t_philosopher *head)
 		pthread_join(*(temp->thread), NULL);
 		temp = temp->next;
 	}
-	pthread_join(*(head->meta->watcher), NULL);
-	return (NULL);
+
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/26 18:06:42 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/27 18:55:57 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define DEATH 0
 # define GREEN 1
 # define RED -1
+# define ODD_NUMBER 1
 
 typedef struct s_philosopher	t_philosopher;
 
@@ -60,6 +61,7 @@ struct s_philosopher {
 	int				times_eaten;
 	int				last_meal_ms;
 	int				id;
+	int				order;
 	t_parameters	*meta;
 };
 

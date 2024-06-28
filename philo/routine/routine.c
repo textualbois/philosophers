@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/28 00:40:18 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/28 17:47:29 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	*philosopher_routine(void *arg)
 	phil = (t_philosopher *) arg;
 
 	//printf("philo %i takes global lock\n", phil->id);
-	printf("philo %i global lock is %p\n", phil->id, phil->meta->global_mtx);
+	//printf("philo %i global lock is %p\n", phil->id, phil->meta->global_mtx);
 	pthread_mutex_lock(phil->meta->global_mtx);
 	pthread_mutex_unlock(phil->meta->global_mtx);
 	//printf("philo %i releases global lock\n", phil->id);
@@ -45,7 +45,7 @@ static void	*watcher_routine(void *arg)
 	head = (t_philosopher *) arg;
 	//printf("watcher takes global lock\n");
 
-	printf("watcher global lock is %p\n", head->meta->global_mtx);
+	//printf("watcher global lock is %p\n", head->meta->global_mtx);
 	pthread_mutex_lock(head->meta->global_mtx);
 	// usleep(1000);
 	// head->meta->start_time = time_in_ms();
@@ -97,7 +97,7 @@ void	*run_routines(t_philosopher *head)
 		return (full_clean(head));
 	if (pthread_create(temp->thread, NULL, philosopher_routine, (void *)temp) != 0)
 		return (full_clean(head));
-		temp = temp->next;
+	temp = temp->next;
 	while (temp != head)
 	{
 		if (pthread_create(temp->thread, NULL, philosopher_routine, (void *)temp) != 0)

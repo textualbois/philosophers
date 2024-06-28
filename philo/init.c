@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/28 00:34:20 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/28 18:04:54 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 	philosopher = malloc(sizeof(t_philosopher));
 	if (philosopher != NULL)
 	{
-		philosopher->thread = calloc(1, sizeof(pthread_t));
-		if (philosopher->thread == NULL)
+		if (slim_calloc((void **)&(philosopher->thread), sizeof(pthread_t)) != 0)
 		{
 			free(philosopher);
 			return (NULL);

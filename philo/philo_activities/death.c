@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/25 00:06:28 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/28 20:22:24 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	has_starved(t_philosopher *philo)
 {
+	if (philo->last_meal_ms == 0)
+		philo->last_meal_ms = philo->meta->start_time;
 	return (time_without_food(philo) > philo->meta->time_to_die);
 }
 

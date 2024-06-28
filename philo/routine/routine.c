@@ -6,7 +6,7 @@
 /*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/28 18:23:43 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/28 20:22:17 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	*run_routines(t_philosopher *head)
 	// 	return (NULL);
 
 	head->meta->start_time = time_in_ms();
+	
 	pthread_mutex_unlock(head->meta->global_mtx);
 	waith_for_threads(head);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/28 18:04:54 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/28 20:24:33 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 {
 	t_philosopher	*philosopher;
 
-	philosopher = malloc(sizeof(t_philosopher));
-	if (philosopher != NULL)
+	philosopher = NULL;
+	if (slim_calloc((void **)&philosopher, sizeof(t_philosopher)) == 0)
 	{
 		if (slim_calloc((void **)&(philosopher->thread), sizeof(pthread_t)) != 0)
 		{
@@ -68,7 +68,8 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->right_fork = NULL;
 		philosopher->status = THINKING;
 		philosopher->times_eaten = 0;
-		philosopher->last_meal_ms = params->start_time;
+		philosopher->last_meal_ms = 0;
+		//philosopher->last_meal_ms = params->start_time;
 		philosopher->id = count;
 		philosopher->meta = params;
 		philosopher->order = count % 2;

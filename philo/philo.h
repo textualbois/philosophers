@@ -6,7 +6,7 @@
 /*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/28 18:44:33 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/28 18:46:14 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,5 @@ t_philosopher	*clean_philo_return_previous(t_philosopher *philo);
 t_philosopher	*clean_philo_return_next(t_philosopher *philo);
 void			*full_clean(t_philosopher *head);
 void			clean_params(t_philosopher *head);
-
 
 #endif

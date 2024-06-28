@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/27 23:56:32 by isemin           ###   ########.fr       */
+/*   Updated: 2024/06/28 18:44:33 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ int				set_eating_limit(int argc, char **argv);
 t_philosopher	*clean_philo_return_previous(t_philosopher *philo);
 t_philosopher	*clean_philo_return_next(t_philosopher *philo);
 void			*full_clean(t_philosopher *head);
+void			clean_params(t_philosopher *head);
+
 
 #endif

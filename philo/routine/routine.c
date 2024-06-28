@@ -6,7 +6,7 @@
 /*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/06/28 17:47:29 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/06/28 18:23:43 by ivansemin        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void	*watcher_routine(void *arg)
 	pthread_mutex_lock(head->meta->global_mtx);
 	// usleep(1000);
 	// head->meta->start_time = time_in_ms();
-	pthread_mutex_unlock(head->meta->global_mtx);
 	//printf("watcher releases global lock\n");
 	while(head->meta->light == GREEN)
 	{
@@ -63,11 +62,14 @@ static void	*watcher_routine(void *arg)
 			{
 				head->meta->light = RED;
 				philo_dead(temp);
+				pthread_mutex_unlock(head->meta->global_mtx);
+				return (NULL);
 			}
 			temp = temp->next;
 			i++;
 		}
 	}
+	pthread_mutex_unlock(head->meta->global_mtx);
 	return (NULL);
 }
 

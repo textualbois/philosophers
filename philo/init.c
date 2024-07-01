@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/29 02:38:19 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/07/01 12:07:34 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_parameters	*init_parameters(int argc, char **argv)
 		params->time_to_die = ft_atoi(argv[2]);
 		params->time_to_eat = ft_atoi(argv[3]);
 		params->time_to_sleep = ft_atoi(argv[4]);
-		params->eating_limit = set_eating_limit(argc, argv);
+		set_eating_limits(argc, argv, params);
 		params->light = RED;
 		if (slim_malloc((void**)&(params->watcher), sizeof(pthread_t)) != 0)
 		{
@@ -47,7 +47,6 @@ t_parameters	*init_parameters(int argc, char **argv)
 			free(params->watcher);
 			return (NULL);
 		}
-		//params->start_time = time_in_ms();
 	}
 	return (params);
 }
@@ -73,6 +72,8 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->id = count;
 		philosopher->meta = params;
 		philosopher->order = count % 2;
+		if (philosopher->meta->philosopher_count == count)
+			philosopher->order = LAST_GROUP;
 	}
 	return (philosopher);
 }

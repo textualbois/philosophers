@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:01:18 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 18:34:02 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/01 07:26:33 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,19 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (sign * res + (sign == 0) * res);
+}
+
+int	get_set_value(int *val_ptr, int new_value, int get_set)
+{
+	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
+	int						val;
+
+	val = 0;
+	pthread_mutex_lock(&mutex);
+	if (get_set == GET)
+		val = *val_ptr;
+	else
+		*val_ptr = new_value;
+	pthread_mutex_unlock(&mutex);
+	return (val);
 }

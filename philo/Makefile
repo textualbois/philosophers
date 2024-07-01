@@ -2,7 +2,7 @@ NAME = philo
 BONUS_NAME = philo_bonus
 
 DIR_ACTIVITIES = philo_activities/
-SRCS_ACTIVITIES = death.c philo_activities.c
+SRCS_ACTIVITIES = death.c philo_activities.c fork_helpers.c
 DIR_PRINTS = prints/
 SRCS_PRINTS = print_gate.c print_statements.c
 DIR_ROUTINE = routine/
@@ -11,6 +11,8 @@ DIR_UTILS = utils/
 SRCS_UTILS = time.c utils.c
 DIR_CLEAN = clean/
 SRCS_CLEAN = main_clean.c
+DIR_GET_SET = get_set/
+SRCS_GET_SET = order.c time.c
 DIR_OTHER =
 SRCS_OTHER = init.c main.c init_helper.c
 
@@ -19,7 +21,8 @@ SRCS = $(addprefix $(DIR_ACTIVITIES), $(SRCS_ACTIVITIES)) \
 		$(addprefix $(DIR_ROUTINE), $(SRCS_ROUTINE)) \
 		$(addprefix $(DIR_UTILS), $(SRCS_UTILS)) \
 		$(addprefix $(DIR_OTHER), $(SRCS_OTHER)) \
-		$(addprefix $(DIR_CLEAN), $(SRCS_CLEAN))
+		$(addprefix $(DIR_CLEAN), $(SRCS_CLEAN)) \
+		$(addprefix $(DIR_GET_SET), $(SRCS_GET_SET))
 
 SRCS_NO_PATH = $(SRCS_ACTIVITIES) $(SRCS_PRINTS) $(SRCS_ROUTINE) $(SRCS_UTILS) $(SRCS_OTHER)
 
@@ -60,6 +63,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)routine
 	mkdir -p $(OBJ_DIR)utils
 	mkdir -p $(OBJ_DIR)clean
+	mkdir -p $(OBJ_DIR)get_set
 	@echo "OBJ_DIR DONE"
 
 clean:

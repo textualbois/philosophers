@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/28 18:46:14 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/07/01 12:05:27 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@
 # define GREEN 1
 # define RED -1
 # define ODD_NUMBER 1
+# define SET 1
+# define GET 2
+# define TIMES_EATEN 3
+# define TIMES_EATEN_THIS_ROUND 4
+# define CUM_TIMES_EATEN 5
+# define ODD_GROUP 1
+# define EVEN_GROUP 0
+# define LAST_GROUP 2
+
 
 typedef struct s_philosopher	t_philosopher;
 
@@ -38,9 +47,15 @@ typedef struct s_parameters {
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				cum_times_eaten;
 	int				eating_limit;
+	int				ttl_eating_limit;
+	int				odd_eating_threshold;
+	int				even_eating_threshold;
+	int				last_eating_threshold;
 	int				start_time;
 	int				light;
+	int				times_eaten_this_round;
 	pthread_mutex_t	*global_mtx;
 	pthread_t		*watcher;
 }	t_parameters;
@@ -72,6 +87,10 @@ void			eat(t_philosopher *philo);
 void			put_down_forks(t_philosopher *philo);
 void			philo_sleep(t_philosopher *philo);
 
+// ./philo/philo_activities/fork_helpers.c
+void			pick_up_from_left(t_philosopher *philo);
+void			pick_up_from_right(t_philosopher *philo);
+
 // ./philo/philo_activities/death.c
 int				has_starved(t_philosopher *philo);
 int				philo_dead(t_philosopher *philo);
@@ -99,6 +118,8 @@ void			sleep_ms(int ms);
 int				ft_isdigit(int c);
 long			ft_atol(const char *nptr);
 int				ft_atoi(const char *nptr);
+int				get_set_value(int *val_ptr, int new_value, int get_set);
+
 
 // ./philo/init.c
 t_parameters	*init_parameters(int argc, char **argv);
@@ -111,12 +132,19 @@ t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *para
 int				init_mutex(pthread_mutex_t **res);
 int				slim_malloc(void **dst, size_t size);
 int				slim_calloc(void **dst, size_t size);
-int				set_eating_limit(int argc, char **argv);
+void			set_eating_limits(int argc, char **argv, t_parameters *params);
 
 // ./philo/clean/main_clean.c
 t_philosopher	*clean_philo_return_previous(t_philosopher *philo);
 t_philosopher	*clean_philo_return_next(t_philosopher *philo);
 void			*full_clean(t_philosopher *head);
 void			clean_params(t_philosopher *head);
+
+// ./philo/get_set/time.c
+int				get_set_time(int get_set, t_philosopher *philo, int	increment);
+
+// ./philo/get_set/order.c
+int				get_order(t_philosopher *philo);
+
 
 #endif

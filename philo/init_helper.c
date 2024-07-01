@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:01:16 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/27 23:44:00 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/01 04:46:28 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,22 @@ int	slim_calloc(void **dst, size_t size)
 	return (0);
 }
 
-int	set_eating_limit(int argc, char **argv)
+void	set_eating_limits(int argc, char **argv, t_parameters *params)
 {
 	if (argc == 6)
-		return (ft_atoi(argv[5]));
+	{
+		params->eating_limit = ft_atoi(argv[5]);
+		params->ttl_eating_limit = params->eating_limit * params->philosopher_count;
+	}
 	else
-		return (-1);
+	{
+		params->eating_limit = -1;
+		params->ttl_eating_limit = -1;
+	}
+	params->odd_eating_threshold = params->philosopher_count / 2;
+	params->even_eating_threshold = params->odd_eating_threshold * 2;
+	params->last_eating_threshold = params->philosopher_count;
+
+	// printf("%i philo_count\n%i eating_limit\n%i ttl_eating_limit\n%i odd_eating_threshold\n%i even_eating_threashold\n%i last_eating_threshold\n%i times_eaten_this_round\n\n", \
+	// params->philosopher_count, params->eating_limit, params->ttl_eating_limit, params->odd_eating_threshold, params->even_eating_threshold, params->last_eating_threshold, params->times_eaten_this_round);
 }

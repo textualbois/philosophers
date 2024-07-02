@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/27 23:42:39 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 03:01:08 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,31 @@
 
 static int	bad_input(int argc, char **argv)
 {
-	if (argc > 4 && argv[3] != NULL)
+	int i;
+	int	p;
+
+	if (argc == 5 || argc == 6)
+	{
+		i = 1;
+		while (i < argc)
+		{
+			p = 0;
+			while(argv[i][p] != '\0')
+			{
+				if (ft_isdigit((int)argv[i][p]) == 0)
+				{
+					printf("Bad input.\nUse only ints\n");
+					return (1);
+				}
+				p++;
+			}
+			i++;
+		}
 		return (0);
-	else
-		return (1);
+	}
+	printf("Bad input.\nUsage:\n./philo philo_count time_to_die");
+	printf(" time_to_eat time_to_sleep [meal_limit(optional)]\n");
+	return (1);
 }
 
 /**

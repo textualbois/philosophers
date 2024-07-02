@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 12:07:34 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 07:58:05 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->id = count;
 		philosopher->meta = params;
 		philosopher->order = count % 2;
-		if (philosopher->meta->philosopher_count == count)
+		if (philosopher->meta->philosopher_count == count && count % 2 == 1)
 			philosopher->order = LAST_GROUP;
 	}
 	return (philosopher);

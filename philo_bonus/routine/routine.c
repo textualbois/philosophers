@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/02 12:08:07 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 12:24:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ static void	*philosopher_routine(t_philosopher *philo)
 {
 	t_philosopher	*phil;
 
-	while (any_deaths() == FALSE)
+	while (any_deaths() == FALSE && )
 	{
 		think(phil);
 		pick_up_forks(phil);
 		eat(phil);
+		if (philo->times_eaten == )
 		put_down_forks(phil);
 		philo_sleep(phil);
 	}
@@ -56,10 +57,7 @@ static void	*watcher_routine(void *arg)
 		{
 			register_death(philo);
 		}
-		else if (has_starved(philo))
-		{
-			register_death
-		}
+
 			temp = temp->next;
 			//i++;
 		}

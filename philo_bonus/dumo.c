@@ -41,7 +41,7 @@ int	philosophers_bonus(int argc, char **argv)
 	return (0);
 }
 
-int	run_processes(t_data *data) //forks all of the the pricesses
+int	run_processes(t_data *data) //forks all of the the pricesses //done
 {
 	pid_t	p_id;
 	int		i;
@@ -92,7 +92,7 @@ int	start_routine(t_data *data, int id) //process for each seperate philo
 	exit(0);
 }
 
-int	set_philo(t_data *data, int id) // i dont think i need this.
+int	set_philo(t_data *data, int id)
 {
 	char	*sem_name;
 

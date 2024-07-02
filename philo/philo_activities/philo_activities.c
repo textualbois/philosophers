@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/02 03:25:46 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 07:43:02 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	eat(t_philosopher *philo)
 {
 //	pthread_mutex_lock(philo->meta->global_mtx);
 	philo->last_meal_ms = time_in_ms();
-	print_action(EATING, philo);
 	get_set_time(SET, philo, 1);
+	print_action(EATING, philo);
 	sleep_ms(philo->meta->time_to_eat);
 //	pthread_mutex_unlock(philo->meta->global_mtx);
 }

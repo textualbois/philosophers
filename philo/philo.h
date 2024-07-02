@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 12:05:27 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 02:39:01 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void			pick_up_from_right(t_philosopher *philo);
 // ./philo/philo_activities/death.c
 int				has_starved(t_philosopher *philo);
 int				philo_dead(t_philosopher *philo);
+void			*register_death(t_philosopher *philo);
 
 // ./philo/prints/print_gate.c
 void			print_action(int action, t_philosopher *philo);

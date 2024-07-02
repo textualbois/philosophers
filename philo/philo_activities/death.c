@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/28 20:22:24 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/07/02 02:39:04 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,12 @@ int	philo_dead(t_philosopher *philo)
 {
 	print_action(DEATH, philo);
 	return (0);
+}
+
+void	*register_death(t_philosopher *philo)
+{
+	philo->meta->light = RED;
+	philo_dead(philo);
+	pthread_mutex_unlock(philo->meta->global_mtx);
+	return (NULL);
 }

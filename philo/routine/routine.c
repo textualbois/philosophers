@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/02 03:18:35 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 09:36:25 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*philosopher_routine(void *arg)
 	t_philosopher	*phil;
 
 	phil = (t_philosopher *) arg;
-	while (phil->meta->light == RED)
+	while (phil->meta->light == RED) //data_Race
 		continue;
 	while (phil->meta->light == GREEN && phil->times_eaten != phil->meta->eating_limit)
 	{
@@ -51,7 +51,7 @@ static void	*watcher_routine(void *arg)
 			temp = temp->next;
 			//i++;
 		}
-		if (head->meta->cum_times_eaten == head->meta->ttl_eating_limit)
+		if (get_set_time(CUM_TIMES_EATEN, head, 0) == head->meta->ttl_eating_limit) // data_race
 			head->meta->light = RED;
 		pthread_mutex_unlock(head->meta->global_mtx);
 	}

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:00:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 03:29:02 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/02 10:20:14 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_action(int action, t_philosopher *philo)
 	static pthread_mutex_t	print_gate = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&print_gate);
-	if (philo->meta->light == GREEN)
+	if (philo->meta->light == GREEN) //data+race with routine.c 41
 	{
 		if (action == THINKING && get_set_time(\
 				CUM_TIMES_EATEN, philo, 0) != philo->meta->ttl_eating_limit)

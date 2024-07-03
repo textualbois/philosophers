@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 13:16:39 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:22:24 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv)
 	unlink_all();
 	printf("main\n");
 	fflush(stdout);
-	head = NULL;
 	if (bad_input(argc, argv))
 		return (1);
 	params = init_parameters(argc, argv);

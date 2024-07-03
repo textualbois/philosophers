@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 13:22:24 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:27:29 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ int	main(int argc, char **argv)
 		printf("params good\n");
 		fflush(stdout);
 		res = run_routines(params); //FIHURE OUT RETURN VALS
-		if (res != 1)
-			clean_params(&params); //todo
-		else
+		if (res == 1)
 		{
 			clean_params(&params); //todo
 			return (1);
@@ -78,6 +76,6 @@ int	main(int argc, char **argv)
 	}
 	else
 		return (1);
-	clean_sems(params);
+	clean_params(&params);
 	return (0);
 }

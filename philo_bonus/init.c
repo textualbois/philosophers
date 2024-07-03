@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 11:08:24 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 10:05:57 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@
 t_parameters	*init_parameters(int argc, char **argv)
 {
 	t_parameters	*params;
+	printf("init_params\n");
+	fflush(stdout);
 
 	params = NULL;
 	if (slim_calloc((void**)&params, sizeof(t_parameters)) == 0)
 	{
+		printf("calloc succesful\n");
+		fflush(stdout);
 		params->philosopher_count = ft_atoi(argv[1]);
 		params->time_to_die = ft_atoi(argv[2]);
 		params->time_to_eat = ft_atoi(argv[3]);
@@ -38,16 +42,22 @@ t_parameters	*init_parameters(int argc, char **argv)
 		params->light = RED;
 		if (slim_malloc((void**)&(params->watcher), sizeof(pthread_t)) != 0)
 		{
+			printf("malloc bad\n");
+			fflush(stdout);
 			free(params);
 			return (NULL);
 		}
-		else if (init_semaphores(params) != 0)
+		else if (init_main_semaphores(params) != 0)
 		{
+			printf("sems failed\n");
+			fflush(stdout);
 			free(params);
 			free(params->watcher);
 			return (NULL);
 		}
+		params->start_time = time_in_ms();
 	}
+
 	return (params);
 }
 
@@ -55,14 +65,16 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 {
 	t_philosopher	*philosopher;
 	char			*sem_name;
+	// printf("init_philospher\n");
+	// fflush(stdout);
 
-	sem_name = create_sem_name(count);
+	sem_name = create_sem_name(count); // done
 	if (sem_name == NULL)
 		return (NULL);
 	philosopher = NULL;
 	if (slim_calloc((void **)&philosopher, sizeof(t_philosopher)) == 0)
 	{
-		if (init_semaphore(&(philosopher->sem), sem_name, 1) != 0)
+		if (init_semaphore(&(philosopher->sem), sem_name, 1) != 0) //done
 		{
 			free(sem_name);
 			free(philosopher);
@@ -71,9 +83,10 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->status = THINKING;
 		philosopher->id = count;
 		philosopher->meta = params;
-		philosopher->order = count % 2;
-		if (philosopher->meta->philosopher_count == count)
-			philosopher->order = LAST_GROUP;
+		philosopher->order = count % 2; //[rpbs not needed]
+		// if (philosopher->meta->philosopher_count == count) //probs not needed
+		// 	philosopher->order = LAST_GROUP;
+		philosopher->last_meal_ms = philosopher->meta->start_time;
 	}
 	free(sem_name);
 	return (philosopher);
@@ -83,7 +96,7 @@ int	init_main_semaphores(t_parameters *params)
 {
 	if (init_semaphore(&(params->forks), "/forks", params->philosopher_count) != 0)
 		return (1);
-	else if (init_semaphore(&(params->global_sem), "/global", 1) != 0)
+	else if (init_semaphore(&(params->death_watcher), "/global", 1) != 0)
 	{
 		destroy_semaphore(params->forks, "/forks");
 		return (1);
@@ -91,14 +104,14 @@ int	init_main_semaphores(t_parameters *params)
 	else if (init_semaphore(&(params->printer), "/print", 1) != 0)
 	{
 		destroy_semaphore(params->forks, "/forks");
-		destroy_semaphore(params->global_sem, "/global");
+		destroy_semaphore(params->death_watcher, "/global");
 		return (1);
 	}
 	else if (init_semaphore(&(params->time), "/time", 1) != 0)
 	{
 		destroy_semaphore(params->forks, "/forks");
-		destroy_semaphore(params->global_sem, "/global");
-		destroy_semaphore(params->global_sem, "/global");
+		destroy_semaphore(params->death_watcher, "/global");
+		destroy_semaphore(params->death_watcher, "/global");
 		return (1);
 	}
 	return (0);

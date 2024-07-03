@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:55:17 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 10:56:34 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 10:02:19 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ size_t	ft_strlen(const char *s)
 	{
 		count++;
 		s++;
+	}
+	return (count);
+}
+
+int	ft_num_digits(long n)
+{
+	int	count;
+
+	count = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n = n / 10;
+		count++;
 	}
 	return (count);
 }
@@ -75,6 +90,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = 0;
-	free(s2);
 	return (str);
 }

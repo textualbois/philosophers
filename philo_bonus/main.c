@@ -6,11 +6,11 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 07:41:52 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 09:48:02 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static int	bad_input(int argc, char **argv)
 {
@@ -56,26 +56,30 @@ int	main(int argc, char **argv)
 {
 	t_parameters	*params;
 	t_philosopher	*head;
-	int				*res;
+	int				res;
 
-	res = NULL;
+	unlink_all();
+	printf("main\n");
+	fflush(stdout);
 	head = NULL;
 	if (bad_input(argc, argv))
 		return (1);
 	params = init_parameters(argc, argv);
 	if (params != NULL)
 	{
-		res = run_routines(head);
-		head = init_philos(params);
-		if (head != NULL)
-		{
-			if (res == NULL)
-				full_clean(head);
-		}
+		printf("params good\n");
+		fflush(stdout);
+		res = run_routines(params); //FIHURE OUT RETURN VALS
+		if (res != 1)
+			clean_params(&params); //todo
 		else
+		{
+			clean_params(&params); //todo
 			return (1);
+		}
 	}
 	else
 		return (1);
+	clean_sems(params);
 	return (0);
 }

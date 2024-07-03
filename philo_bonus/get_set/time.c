@@ -6,18 +6,17 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 12:04:20 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 05:34:19 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 {
-	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
-	int						res;
+	int	res;
 
-	pthread_mutex_lock(&mutex);
+	sem_wait(philo->sem);
 	res = 0;
 	if (get_set == TIMES_EATEN_THIS_ROUND)
 		res = philo->meta->times_eaten_this_round;
@@ -25,15 +24,11 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 	{
 		philo->times_eaten += increment;
 		philo->meta->times_eaten_this_round += increment;
-		philo->meta->cum_times_eaten += increment;
-		if (philo->meta->times_eaten_this_round == \
-			philo->meta->last_eating_threshold)
-			philo->meta->times_eaten_this_round = 0;
 	}
 	else if (get_set == CUM_TIMES_EATEN)
 		res = philo->meta->cum_times_eaten;
 	else if (get_set == TIMES_EATEN)
 		res = philo->times_eaten;
-	pthread_mutex_unlock(&mutex);
+	sem_post(philo->sem);
 	return (res);
 }

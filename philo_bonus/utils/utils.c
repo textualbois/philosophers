@@ -6,11 +6,11 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:01:18 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 07:26:33 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 08:07:59 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	ft_isdigit(int c)
 {

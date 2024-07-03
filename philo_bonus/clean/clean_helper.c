@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:18:42 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 07:34:13 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 08:03:32 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	destroy_semaphore(sem_t *sem, const char *name)
 		exit(EXIT_FAILURE);
 }
 
-void	clean_params(t_philosopher *head)
+void	clean_params(t_parameters **params) //todo
 {
-	free(head->meta->watcher);
-	pthread_mutex_destroy(head->meta->global_mtx);
-	free(head->meta->global_mtx);
-	free(head->meta);
+	free((*params)->watcher);
+	destroy_semaphore((*params)->time, "/time");
+	destroy_semaphore((*params)->death_watcher, "/global");
+	destroy_semaphore((*params)->printer, "/print");
+	destroy_semaphore((*params)->forks, "forks");
+	free(*params);
 }

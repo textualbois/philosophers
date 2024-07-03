@@ -1,15 +1,15 @@
 NAME = philo_bonus
 
 DIR_ACTIVITIES = philo_activities/
-SRCS_ACTIVITIES = death.c philo_activities.c fork_helpers.c
+SRCS_ACTIVITIES = death.c philo_activities.c eating_helper.c
 DIR_PRINTS = prints/
 SRCS_PRINTS = print_gate.c print_statements.c
 DIR_ROUTINE = routine/
 SRCS_ROUTINE = routine.c
 DIR_UTILS = utils/
-SRCS_UTILS = time.c utils.c
+SRCS_UTILS = time.c utils.c str.c
 DIR_CLEAN = clean/
-SRCS_CLEAN = main_clean.c
+SRCS_CLEAN = main_clean.c clean_helper.c unlinker.c
 DIR_GET_SET = get_set/
 SRCS_GET_SET = order.c time.c
 DIR_OTHER =

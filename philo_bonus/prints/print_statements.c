@@ -6,11 +6,11 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:49:56 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 19:50:52 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 08:07:47 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	print_thinking(t_philosopher *philo)
 {

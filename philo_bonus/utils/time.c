@@ -6,11 +6,11 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:03:08 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 22:33:10 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 07:30:58 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	time_from_start(t_parameters *params)
 {
@@ -23,9 +23,13 @@ int	time_from_start(t_parameters *params)
 int	time_without_food(t_philosopher *philo)
 {
 	int	time_now;
+	int last_meal;
 
+	sem_wait(philo->sem);
+	last_meal = philo->last_meal_ms;
+	sem_post(philo->sem);
 	time_now = time_in_ms();
-	return (time_now - philo->last_meal_ms);
+	return (time_now - last_meal);
 }
 
 int	time_in_ms(void)

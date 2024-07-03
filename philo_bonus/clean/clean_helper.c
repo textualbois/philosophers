@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:18:42 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 08:03:32 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:24:08 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	destroy_semaphore(sem_t *sem, const char *name)
 {
 	if (sem_close(sem) == -1)
+	{
+		printf("failed to close for %s\n", name);
 		exit(EXIT_FAILURE);
+	}
 	if (sem_unlink(name) == -1)
 		exit(EXIT_FAILURE);
 }

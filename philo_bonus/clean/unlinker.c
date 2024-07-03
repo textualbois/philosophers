@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:48:58 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 10:02:33 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 11:21:09 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,7 @@ void unlink_all(void)
 
 	printf("Unlinking semaphore /time\n");
 	sem_unlink("/time");
+
+	printf("Unlinking semaphore /death\n");
+	sem_unlink("/death");
 }

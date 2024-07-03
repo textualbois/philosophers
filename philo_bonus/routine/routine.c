@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/03 10:03:38 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:10:05 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	*watcher_routine(void *arg);
 static void	*start_philo(t_parameters *params, int id)
 {
 	t_philosopher *philo;
-	// printf("start_philo\n");
-	// fflush(stdout);
 
 	philo = init_philosopher(id, params); //done
 	if (philo == NULL)
@@ -53,17 +51,14 @@ static void	*philosopher_routine(t_philosopher *philo) //DOING NOW
 static void	*watcher_routine(void *arg) // maybe done
 {
 	t_philosopher	*philo;
-//	int				i;
 
 	philo = (t_philosopher *) arg;
 	while (any_deaths() == false)
 	{
-		sem_wait(philo->sem);
 		if (has_starved(philo))
 		{
 			register_death(philo);
 		}
-		sem_post(philo->sem);
 	}
 	return (NULL);
 }
@@ -73,8 +68,6 @@ int	run_routines(t_parameters *params) // done
 	pid_t	pid;
 	int		philo_id;
 	pid_t	*kids;
-	// printf("run_routines\n");
-	// fflush(stdout);
 
 	if (slim_calloc((void**)&kids, sizeof(pid_t) * params->philosopher_count) != 0)
 		return (1);

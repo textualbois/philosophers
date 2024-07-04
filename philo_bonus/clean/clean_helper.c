@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:18:42 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 13:24:08 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	clean_params(t_parameters **params) //todo
 {
 	free((*params)->watcher);
 	destroy_semaphore((*params)->time, "/time");
-	destroy_semaphore((*params)->death_watcher, "/global");
+	destroy_semaphore((*params)->death_watcher, "/death_watcher");
 	destroy_semaphore((*params)->printer, "/print");
 	destroy_semaphore((*params)->forks, "forks");
 	free(*params);

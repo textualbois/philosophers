@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 10:05:57 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	init_main_semaphores(t_parameters *params)
 {
 	if (init_semaphore(&(params->forks), "/forks", params->philosopher_count) != 0)
 		return (1);
-	else if (init_semaphore(&(params->death_watcher), "/global", 1) != 0)
+	else if (init_semaphore(&(params->death_watcher), "/death_watcher", 1) != 0)
 	{
 		destroy_semaphore(params->forks, "/forks");
 		return (1);
@@ -104,14 +104,14 @@ int	init_main_semaphores(t_parameters *params)
 	else if (init_semaphore(&(params->printer), "/print", 1) != 0)
 	{
 		destroy_semaphore(params->forks, "/forks");
-		destroy_semaphore(params->death_watcher, "/global");
+		destroy_semaphore(params->death_watcher, "/death_watcher");
 		return (1);
 	}
 	else if (init_semaphore(&(params->time), "/time", 1) != 0)
 	{
 		destroy_semaphore(params->forks, "/forks");
-		destroy_semaphore(params->death_watcher, "/global");
-		destroy_semaphore(params->death_watcher, "/global");
+		destroy_semaphore(params->death_watcher, "/death_watcher");
+		destroy_semaphore(params->death_watcher, "/death_watcher");
 		return (1);
 	}
 	return (0);

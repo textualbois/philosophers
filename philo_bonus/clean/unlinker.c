@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:48:58 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 11:21:09 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void unlink_all(void)
 	printf("Unlinking semaphore /forks\n");
 	sem_unlink("/forks");
 
-	printf("Unlinking semaphore /global\n");
-	sem_unlink("/global");
+	printf("Unlinking semaphore /death_watcher\n");
+	sem_unlink("/death_watcher");
 
 	printf("Unlinking semaphore /print\n");
 	sem_unlink("/print");

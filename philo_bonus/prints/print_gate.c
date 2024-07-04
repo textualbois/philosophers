@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:00:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 07:52:16 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/04 10:01:23 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_action(int action, t_philosopher *philo)
 {
 	sem_wait(philo->meta->printer);
-	if (any_deaths() == false)
+	if (any_deaths(philo->meta->death_watcher) == false)
 	{
 		if (action == THINKING)
 			print_thinking(philo);

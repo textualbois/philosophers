@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/03 13:42:31 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/04 12:20:39 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	eat(t_philosopher *philo) //probably done
 //	pthread_mutex_lock(philo->meta->global_mtx);
 	philo->last_meal_ms = time_in_ms();
 	print_action(EATING, philo);
-	sem_post(philo->sem);
-	get_set_time(SET, philo, 1);
+	sem_post(philo->sem); // here we let go
+	get_set_time(SET, philo, 1); // but here we acquire again. but we only increment times eaten
 	sleep_ms(philo->meta->time_to_eat);
 //	pthread_mutex_unlock(philo->meta->global_mtx);
 }

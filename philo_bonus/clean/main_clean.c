@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 21:45:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 09:36:36 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int kill_kids(pid_t **kids, int start_from)
 int clean_sems(t_parameters *params)
 {
 	destroy_semaphore(params->forks, "/forks");
-	destroy_semaphore(params->death_watcher, "/global");
+	destroy_semaphore(params->death_watcher, "/death_watcher");
 	destroy_semaphore(params->printer, "/print");
 	destroy_semaphore(params->time, "/time");
 	return (0);

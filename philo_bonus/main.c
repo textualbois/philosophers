@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 07:21:59 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 07:34:36 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	extra_check(int argc, char **argv)
 		printf("Wrong philo count\n 0 < philo count <= 200\n");
 		return (1);
 	}
-	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60 || ft_atoi(argv[4] < 60))
+	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60 || ft_atoi(argv[4]) < 60)
 	{
 		printf("Wrong main parameter value\n try >= 60\n");
 		return (1);

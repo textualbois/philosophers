@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:03:08 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 22:33:10 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:33:43 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	time_from_start(t_parameters *params)
 	return (time_now - params->start_time);
 }
 
-int	time_without_food(t_philosopher *philo)
+int	time_without_food(int last_meal)
 {
 	int	time_now;
 
 	time_now = time_in_ms();
-	return (time_now - philo->last_meal_ms);
+	return (time_now - last_meal);
 }
 
 int	time_in_ms(void)

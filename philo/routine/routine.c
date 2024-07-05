@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/02 09:36:25 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:40:27 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	*philosopher_routine(void *arg)
 	t_philosopher	*phil;
 
 	phil = (t_philosopher *) arg;
-	while (phil->meta->light == RED) //data_Race
+	while (allowed_to_continue(GET, 0) == STOP) //data_Race
 		continue;
-	while (phil->meta->light == GREEN && phil->times_eaten != phil->meta->eating_limit)
+	while (allowed_to_continue(GET, 0) == GO)
 	{
 		think(phil);
 		pick_up_forks(phil);
@@ -39,21 +39,18 @@ static void	*watcher_routine(void *arg)
 	head = (t_philosopher *) arg;
 	head->meta->start_time = time_in_ms();
 	head->meta->light = GREEN;
-	while(head->meta->light == GREEN)
+	while (1)
 	{
-		pthread_mutex_lock(head->meta->global_mtx);
 		temp = head;
 		i = 0;
-		while (++i <= temp->id && head->meta->light == GREEN)
+		while (++i <= temp->id)
 		{
 			if (has_starved(temp))
-				register_death(temp);
+				return (register_death(temp));
 			temp = temp->next;
-			//i++;
 		}
 		if (get_set_time(CUM_TIMES_EATEN, head, 0) == head->meta->ttl_eating_limit) // data_race
-			head->meta->light = RED;
-		pthread_mutex_unlock(head->meta->global_mtx);
+			return (allowed_to_continue(SET, STOP), NULL);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 02:39:01 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:34:09 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <string.h>
+# include <stdbool.h>
 
 # define MAX_PHILO 200
 
@@ -35,9 +36,13 @@
 # define TIMES_EATEN 3
 # define TIMES_EATEN_THIS_ROUND 4
 # define CUM_TIMES_EATEN 5
+# define LAST_MEAL 6
+# define SET_LAST_MEAL 7
 # define ODD_GROUP 1
 # define EVEN_GROUP 0
 # define LAST_GROUP 2
+# define STOP 0
+# define GO -1
 
 
 typedef struct s_philosopher	t_philosopher;
@@ -100,18 +105,18 @@ void			*register_death(t_philosopher *philo);
 void			print_action(int action, t_philosopher *philo);
 
 // ./philo/prints/print_statements.c
-void			print_thinking(t_philosopher *philo);
-void			print_taking_fork(t_philosopher *philo);
-void			print_eating(t_philosopher *philo);
-void			print_sleeping(t_philosopher *philo);
-void			print_death(t_philosopher *philo);
+void			print_thinking(t_philosopher *philo, pthread_mutex_t *print_lock);
+void			print_taking_fork(t_philosopher *philo, pthread_mutex_t *print_lock);
+void			print_eating(t_philosopher *philo, pthread_mutex_t *print_lock);
+void			print_sleeping(t_philosopher *philo, pthread_mutex_t *print_lock);
+void			print_death(t_philosopher *philo, pthread_mutex_t *print_lock);
 
 // ./philo/routine/routine.c
 void			*run_routines(t_philosopher *head);
 
 // ./philo/utils/time.c
 int				time_from_start(t_parameters *params);
-int				time_without_food(t_philosopher *philo);
+int				time_without_food(int last_meal);
 int				time_in_ms(void);
 void			sleep_ms(int ms);
 
@@ -120,7 +125,6 @@ int				ft_isdigit(int c);
 long			ft_atol(const char *nptr);
 int				ft_atoi(const char *nptr);
 int				get_set_value(int *val_ptr, int new_value, int get_set);
-
 
 // ./philo/init.c
 t_parameters	*init_parameters(int argc, char **argv);
@@ -146,6 +150,10 @@ int				get_set_time(int get_set, t_philosopher *philo, int	increment);
 
 // ./philo/get_set/order.c
 int				get_order(t_philosopher *philo);
+
+// ./philo/get_set/start_stop_flags.c
+int				allowed_to_continue(int	get_set, int new_val);
+
 
 
 #endif

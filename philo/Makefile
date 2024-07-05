@@ -12,7 +12,7 @@ SRCS_UTILS = time.c utils.c
 DIR_CLEAN = clean/
 SRCS_CLEAN = main_clean.c
 DIR_GET_SET = get_set/
-SRCS_GET_SET = order.c time.c
+SRCS_GET_SET = order.c time.c start_stop_flags.c
 DIR_OTHER =
 SRCS_OTHER = init.c main.c init_helper.c
 

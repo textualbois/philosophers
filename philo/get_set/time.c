@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 11:03:40 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 13:25:49 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 
 	pthread_mutex_lock(&mutex);
 	res = 0;
-	if (get_set == TIMES_EATEN_THIS_ROUND)
+	if (get_set == LAST_MEAL)
+		res = philo->last_meal_ms;
+	else if (get_set == TIMES_EATEN_THIS_ROUND)
 		res = philo->meta->times_eaten_this_round;
 	else if (get_set == SET)
 	{
+		philo->last_meal_ms = time_in_ms();
 		philo->times_eaten += increment;
 		philo->meta->times_eaten_this_round += increment;
 		philo->meta->cum_times_eaten += increment;
@@ -35,7 +38,7 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 	else if (get_set == TIMES_EATEN)
 		res = philo->times_eaten;
 	else if (get_set == SET_LAST_MEAL)
-		philo->last_meal_ms = time_in_ms();
+		philo->last_meal_ms = philo->meta->start_time;
 	pthread_mutex_unlock(&mutex);
 	return (res);
 }

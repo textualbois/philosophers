@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 07:58:05 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 12:04:19 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_parameters	*init_parameters(int argc, char **argv)
 		params->time_to_eat = ft_atoi(argv[3]);
 		params->time_to_sleep = ft_atoi(argv[4]);
 		set_eating_limits(argc, argv, params);
-		params->light = RED;
 		if (slim_malloc((void**)&(params->watcher), sizeof(pthread_t)) != 0)
 		{
 			free(params);

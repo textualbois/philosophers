@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/05 11:40:27 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 13:25:56 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static void	*philosopher_routine(void *arg)
 	t_philosopher	*phil;
 
 	phil = (t_philosopher *) arg;
-	while (allowed_to_continue(GET, 0) == STOP) //data_Race
+	while (allowed_to_continue(GET, 0) == STOP)
 		continue;
 	while (allowed_to_continue(GET, 0) == GO)
 	{
+		// printf("last meal for phil %i was at %i\n", phil->id, phil->last_meal_ms - phil->meta->start_time);
 		think(phil);
 		pick_up_forks(phil);
 		eat(phil);
@@ -37,8 +38,10 @@ static void	*watcher_routine(void *arg)
 	int				i;
 
 	head = (t_philosopher *) arg;
+	pthread_mutex_lock(head->meta->global_mtx);
+	pthread_mutex_unlock(head->meta->global_mtx);
 	head->meta->start_time = time_in_ms();
-	head->meta->light = GREEN;
+	allowed_to_continue(SET, GO);
 	while (1)
 	{
 		temp = head;
@@ -75,6 +78,8 @@ void	*run_routines(t_philosopher *head)
 	t_philosopher	*temp;
 
 	temp = head;
+	allowed_to_continue(SET, STOP);
+	pthread_mutex_lock(head->meta->global_mtx);
 	if (pthread_create(head->meta->watcher, NULL, watcher_routine, (void *)head) != 0)
 		return (full_clean(head));
 	if (pthread_create(temp->thread, NULL, philosopher_routine, (void *)temp) != 0)
@@ -86,6 +91,10 @@ void	*run_routines(t_philosopher *head)
 			return (full_clean(head));
 		temp = temp->next;
 	}
+	pthread_mutex_unlock(head->meta->global_mtx);
+	printf("mutex unlocked\n");
+	fflush(stdout);
+
 	waith_for_threads(head);
 	return (NULL);
 }

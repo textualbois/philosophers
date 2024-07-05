@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 12:04:20 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:03:40 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 		res = philo->meta->cum_times_eaten;
 	else if (get_set == TIMES_EATEN)
 		res = philo->times_eaten;
+	else if (get_set == SET_LAST_MEAL)
+		philo->last_meal_ms = time_in_ms();
 	pthread_mutex_unlock(&mutex);
 	return (res);
 }

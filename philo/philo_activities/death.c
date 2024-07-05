@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 02:39:04 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:34:45 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 int	has_starved(t_philosopher *philo)
 {
-	if (philo->last_meal_ms == 0)
-		philo->last_meal_ms = philo->meta->start_time;
-	return (time_without_food(philo) > philo->meta->time_to_die);
+	int	last_meal;
+
+	last_meal = get_set_time(LAST_MEAL, philo, 0);
+	if (last_meal == 0)
+	{
+		last_meal = philo->meta->start_time;
+		get_set_time(SET_LAST_MEAL, philo, philo->meta->start_time);
+	}
+	return (time_without_food(last_meal) > philo->meta->time_to_die);
 }
 
 int	philo_dead(t_philosopher *philo)
@@ -27,8 +33,7 @@ int	philo_dead(t_philosopher *philo)
 
 void	*register_death(t_philosopher *philo)
 {
-	philo->meta->light = RED;
+	allowed_to_continue(SET, philo->id);
 	philo_dead(philo);
-	pthread_mutex_unlock(philo->meta->global_mtx);
 	return (NULL);
 }

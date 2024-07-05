@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/05 13:25:56 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 13:39:28 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	*watcher_routine(void *arg)
 		}
 		if (get_set_time(CUM_TIMES_EATEN, head, 0) == head->meta->ttl_eating_limit) // data_race
 			return (allowed_to_continue(SET, STOP), NULL);
+		usleep(100);
 	}
 	return (NULL);
 }

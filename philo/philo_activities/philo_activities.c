@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/02 10:19:25 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/03 08:07:09 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	think(t_philosopher *philo)
 
 void	pick_up_forks(t_philosopher *philo)
 {
-	while (get_order(philo) != philo->order)
-	{
-		usleep(300);
-	}
+	// while (get_order(philo) != philo->order)
+	// {
+	// 	usleep(300);
+	// }
 	pick_up_from_left(philo);
 }
 

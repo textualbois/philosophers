@@ -6,11 +6,31 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 03:01:08 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 07:22:45 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	extra_check(int argc, char **argv)
+{
+	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) < 1)
+	{
+		printf("Wrong philo count\n 0 < philo count <= 200\n");
+		return (1);
+	}
+	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60 || ft_atoi(argv[4] < 60))
+	{
+		printf("Wrong main parameter value\n try >= 60\n");
+		return (1);
+	}
+	if (argc == 6 && ft_atoi(argv[5]) < 0)
+	{
+		printf("wrong minimum meal count value\n try a non-negative value\n");
+		return (1);
+	}
+	return (0);
+}
 
 static int	bad_input(int argc, char **argv)
 {

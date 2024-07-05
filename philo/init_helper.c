@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:01:16 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 04:46:28 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 13:28:39 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,4 @@ void	set_eating_limits(int argc, char **argv, t_parameters *params)
 	params->odd_eating_threshold = params->philosopher_count / 2;
 	params->even_eating_threshold = params->odd_eating_threshold * 2;
 	params->last_eating_threshold = params->philosopher_count;
-
-	// printf("%i philo_count\n%i eating_limit\n%i ttl_eating_limit\n%i odd_eating_threshold\n%i even_eating_threashold\n%i last_eating_threshold\n%i times_eaten_this_round\n\n", \
-	// params->philosopher_count, params->eating_limit, params->ttl_eating_limit, params->odd_eating_threshold, params->even_eating_threshold, params->last_eating_threshold, params->times_eaten_this_round);
 }

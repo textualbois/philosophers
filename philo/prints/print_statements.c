@@ -6,48 +6,61 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:49:56 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/24 19:50:52 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 08:45:57 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_thinking(t_philosopher *philo)
+void	print_thinking(t_philosopher *philo, pthread_mutex_t *print_lock)
 {
 	int	timestamp;
 
+	pthread_mutex_lock(print_lock);
 	timestamp = time_from_start(philo->meta);
 	printf("%d %d is thinking\n", timestamp, philo->id);
+	pthread_mutex_unlock(print_lock);
 }
 
-void	print_taking_fork(t_philosopher *philo)
+void	print_taking_fork(t_philosopher *philo, pthread_mutex_t *print_lock)
 {
 	int	timestamp;
 
+	pthread_mutex_lock(print_lock);
 	timestamp = time_from_start(philo->meta);
 	printf("%d %d has taken a fork\n", timestamp, philo->id);
+	pthread_mutex_unlock(print_lock);
+
 }
 
-void	print_eating(t_philosopher *philo)
+void	print_eating(t_philosopher *philo, pthread_mutex_t *print_lock)
 {
 	int	timestamp;
 
+	pthread_mutex_lock(print_lock);
 	timestamp = time_from_start(philo->meta);
 	printf("%d %d is eating\n", timestamp, philo->id);
+	pthread_mutex_unlock(print_lock);
+
 }
 
-void	print_sleeping(t_philosopher *philo)
+void	print_sleeping(t_philosopher *philo, pthread_mutex_t *print_lock)
 {
 	int	timestamp;
 
+	pthread_mutex_lock(print_lock);
 	timestamp = time_from_start(philo->meta);
 	printf("%d %d is sleeping\n", timestamp, philo->id);
+	pthread_mutex_unlock(print_lock);
+
 }
 
-void	print_death(t_philosopher *philo)
+void	print_death(t_philosopher *philo, pthread_mutex_t *print_lock)
 {
 	int	timestamp;
 
+	pthread_mutex_lock(print_lock);
 	timestamp = time_from_start(philo->meta);
 	printf("%d %d died\n", timestamp, philo->id);
+	pthread_mutex_unlock(print_lock);
 }

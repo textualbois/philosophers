@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:00:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/02 10:20:14 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:28:45 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,22 @@
 void	print_action(int action, t_philosopher *philo)
 {
 	static pthread_mutex_t	print_gate = PTHREAD_MUTEX_INITIALIZER;
+	int						go_on;
 
-	pthread_mutex_lock(&print_gate);
-	if (philo->meta->light == GREEN) //data+race with routine.c 41
+	go_on = allowed_to_continue(GET, 0);
+	if (go_on == GO)
 	{
-		if (action == THINKING && get_set_time(\
-				CUM_TIMES_EATEN, philo, 0) != philo->meta->ttl_eating_limit)
-			print_thinking(philo);
+		if (action == THINKING)
+			print_thinking(philo, &print_gate);
 		else if (action == TAKING_FORK)
-			print_taking_fork(philo);
+			print_taking_fork(philo, &print_gate);
 		else if (action == EATING)
-			print_eating(philo);
-		else if (action == SLEEPING && get_set_time(\
-				CUM_TIMES_EATEN, philo, 0) != philo->meta->ttl_eating_limit)
-			print_sleeping(philo);
+			print_eating(philo, &print_gate);
+		else if (action == SLEEPING)
+			print_sleeping(philo, &print_gate);
 	}
-	else if (action == DEATH)
+	else if (action == DEATH && go_on == philo->id)
 	{
-		print_death(philo);
-	};
-	pthread_mutex_unlock(&print_gate);
+		print_death(philo, &print_gate);
+	}
 }

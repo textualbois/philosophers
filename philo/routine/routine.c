@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/05 13:39:28 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 12:50:48 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,21 @@ static void	*philosopher_routine(void *arg)
 		continue;
 	while (allowed_to_continue(GET, 0) == GO)
 	{
+		// printf("allowed_to_continue for philo %i\n", phil->id);
+		// fflush(stdout);
 		// printf("last meal for phil %i was at %i\n", phil->id, phil->last_meal_ms - phil->meta->start_time);
 		think(phil);
-		pick_up_forks(phil);
+		if (pick_up_forks(phil) != 0)
+		{
+			allowed_to_continue(SET, phil->id);
+			break ;
+		}
 		eat(phil);
 		put_down_forks(phil);
 		philo_sleep(phil);
 	}
+	printf("for philo %i we are exiting the routine\n", phil->id);
+	fflush(stdout);
 	return (NULL);
 }
 

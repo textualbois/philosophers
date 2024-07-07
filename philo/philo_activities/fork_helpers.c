@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 01:23:42 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/01 12:04:23 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 12:49:01 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,39 @@
 // 	}
 // }
 
-void	pick_up_from_left(t_philosopher *philo)
+int	pick_up_from_left(t_philosopher *philo)
 {
-	pthread_mutex_lock(philo->left_fork->mutex);
+	if (pthread_mutex_lock(philo->left_fork->mutex) != 0)
+		return (-1);
 	pthread_mutex_lock(philo->meta->global_mtx);
 	print_action(TAKING_FORK, philo);
 	pthread_mutex_unlock(philo->meta->global_mtx);
-
+	if (philo->right_fork == philo->left_fork)
+	{
+		pthread_mutex_unlock(philo->left_fork->mutex);
+		return (-1);
+	}
 	pthread_mutex_lock(philo->right_fork->mutex);
 	pthread_mutex_lock(philo->meta->global_mtx);
 	print_action(TAKING_FORK, philo);
 	pthread_mutex_unlock(philo->meta->global_mtx);
+	return (0);
 }
 
-void	pick_up_from_right(t_philosopher *philo)
+int	pick_up_from_right(t_philosopher *philo)
 {
-	pthread_mutex_lock(philo->right_fork->mutex);
+	if (pthread_mutex_lock(philo->right_fork->mutex) != 0)
+		return (-1);
 	pthread_mutex_lock(philo->meta->global_mtx);
 	print_action(TAKING_FORK, philo);
 	pthread_mutex_unlock(philo->meta->global_mtx);
-
-	pthread_mutex_lock(philo->left_fork->mutex);
+	if (philo->right_fork == philo->left_fork)
+	{
+		pthread_mutex_unlock(philo->right_fork->mutex);
+		return (-1);
+	}
 	pthread_mutex_lock(philo->meta->global_mtx);
 	print_action(TAKING_FORK, philo);
 	pthread_mutex_unlock(philo->meta->global_mtx);
+	return (0);
 }

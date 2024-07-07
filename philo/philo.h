@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 11:34:09 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 12:25:41 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ struct s_philosopher {
 
 // ./philo/philo_activities/philo_activities.c
 void			think(t_philosopher *philo);
-void			pick_up_forks(t_philosopher *philo);
+int				pick_up_forks(t_philosopher *philo);
 void			eat(t_philosopher *philo);
 void			put_down_forks(t_philosopher *philo);
 void			philo_sleep(t_philosopher *philo);
 
 // ./philo/philo_activities/fork_helpers.c
-void			pick_up_from_left(t_philosopher *philo);
-void			pick_up_from_right(t_philosopher *philo);
+int				pick_up_from_left(t_philosopher *philo);
+int				pick_up_from_right(t_philosopher *philo);
 
 // ./philo/philo_activities/death.c
 int				has_starved(t_philosopher *philo);

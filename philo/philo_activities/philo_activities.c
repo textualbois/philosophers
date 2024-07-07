@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/05 13:48:31 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 12:42:33 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ void	think(t_philosopher *philo)
 	print_action(THINKING, philo);
 }
 
-void	pick_up_forks(t_philosopher *philo)
+int	pick_up_forks(t_philosopher *philo)
 {
 	while (get_order(philo) != philo->order)
 	{
 		usleep(300);
 	}
-	if (philo->order == ODD_GROUP)
-		pick_up_from_left(philo);
+	if (philo->order == ODD_GROUP && philo->left_fork->mutex != NULL)
+		return (pick_up_from_left(philo));
+	else if (philo->right_fork->mutex != NULL)
+		return (pick_up_from_right(philo));
 	else
-		pick_up_from_right(philo);
+		return (-1);
 }
 
 void	eat(t_philosopher *philo)

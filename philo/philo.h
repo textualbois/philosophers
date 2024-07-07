@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 12:25:41 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:19:38 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define CUM_TIMES_EATEN 5
 # define LAST_MEAL 6
 # define SET_LAST_MEAL 7
+# define FULL_COUNT 8
 # define ODD_GROUP 1
 # define EVEN_GROUP 0
 # define LAST_GROUP 2
@@ -53,6 +54,7 @@ typedef struct s_parameters {
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				cum_times_eaten;
+	int				satiated_philos_count;
 	int				eating_limit;
 	int				ttl_eating_limit;
 	int				odd_eating_threshold;

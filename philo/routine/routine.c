@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/07 12:50:48 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:05:28 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	*watcher_routine(void *arg)
 				return (register_death(temp));
 			temp = temp->next;
 		}
-		if (get_set_time(CUM_TIMES_EATEN, head, 0) == head->meta->ttl_eating_limit) // data_race
+		if (get_set_time(FULL_COUNT, head, 0) == head->meta->philosopher_count) // data_race
 			return (allowed_to_continue(SET, STOP), NULL);
 		usleep(100);
 	}

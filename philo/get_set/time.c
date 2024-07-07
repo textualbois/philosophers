@@ -6,11 +6,25 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 13:25:49 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:19:38 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	set_all(t_philosopher *philo, int increment)
+{
+	philo->last_meal_ms = time_in_ms();
+	philo->times_eaten += increment;
+	philo->meta->times_eaten_this_round += increment;
+	philo->meta->cum_times_eaten += increment;
+	if (philo->meta->times_eaten_this_round == \
+		philo->meta->last_eating_threshold)
+		philo->meta->times_eaten_this_round = 0;
+	if (philo->times_eaten == philo->meta->eating_limit)
+		philo->meta->satiated_philos_count++;
+
+}
 
 int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 {
@@ -24,15 +38,9 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 	else if (get_set == TIMES_EATEN_THIS_ROUND)
 		res = philo->meta->times_eaten_this_round;
 	else if (get_set == SET)
-	{
-		philo->last_meal_ms = time_in_ms();
-		philo->times_eaten += increment;
-		philo->meta->times_eaten_this_round += increment;
-		philo->meta->cum_times_eaten += increment;
-		if (philo->meta->times_eaten_this_round == \
-			philo->meta->last_eating_threshold)
-			philo->meta->times_eaten_this_round = 0;
-	}
+		set_all(philo, increment);
+	else if (get_set == FULL_COUNT)
+		res = philo->meta->satiated_philos_count;
 	else if (get_set == CUM_TIMES_EATEN)
 		res = philo->meta->cum_times_eaten;
 	else if (get_set == TIMES_EATEN)

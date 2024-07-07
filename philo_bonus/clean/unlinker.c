@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:48:58 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:57:30 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 14:04:44 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void unlink_all(void)
 	char	*sem_name;
 
 	i = 1;
-	printf("unlinking philos sems\n");
 	while (i <= 200)
 	{
 		sem_name = create_sem_name(i);
@@ -26,19 +25,9 @@ void unlink_all(void)
 		free(sem_name);
 		i++;
 	}
-
-	printf("Unlinking semaphore /forks\n");
 	sem_unlink("/forks");
-
-	printf("Unlinking semaphore /death_watcher\n");
 	sem_unlink("/death_watcher");
-
-	printf("Unlinking semaphore /print\n");
 	sem_unlink("/print");
-
-	printf("Unlinking semaphore /time\n");
 	sem_unlink("/time");
-
-	printf("Unlinking semaphore /death\n");
 	sem_unlink("/death");
 }

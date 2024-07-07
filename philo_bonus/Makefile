@@ -11,7 +11,7 @@ SRCS_UTILS = time.c utils.c str.c
 DIR_CLEAN = clean/
 SRCS_CLEAN = main_clean.c clean_helper.c unlinker.c
 DIR_GET_SET = get_set/
-SRCS_GET_SET = order.c time.c
+SRCS_GET_SET = time.c
 DIR_OTHER =
 SRCS_OTHER = init.c main.c init_helper.c
 

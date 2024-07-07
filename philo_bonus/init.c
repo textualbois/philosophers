@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:59:19 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 14:05:20 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,10 @@
 t_parameters	*init_parameters(int argc, char **argv)
 {
 	t_parameters	*params;
-	printf("init_params\n");
-	fflush(stdout);
 
 	params = NULL;
 	if (slim_calloc((void**)&params, sizeof(t_parameters)) == 0)
 	{
-		printf("calloc succesful\n");
-		fflush(stdout);
 		params->philosopher_count = ft_atoi(argv[1]);
 		params->time_to_die = ft_atoi(argv[2]);
 		params->time_to_eat = ft_atoi(argv[3]);
@@ -42,15 +38,11 @@ t_parameters	*init_parameters(int argc, char **argv)
 		params->light = RED;
 		if (slim_malloc((void**)&(params->watcher), sizeof(pthread_t)) != 0)
 		{
-			printf("malloc bad\n");
-			fflush(stdout);
 			free(params);
 			return (NULL);
 		}
 		else if (init_main_semaphores(params) != 0)
 		{
-			printf("sems failed\n");
-			fflush(stdout);
 			free(params);
 			free(params->watcher);
 			return (NULL);

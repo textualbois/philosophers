@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:48:58 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:57:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,8 @@ void unlink_all(void)
 	printf("unlinking philos sems\n");
 	while (i <= 200)
 	{
-	//	printf("before sem_name\n");
 		sem_name = create_sem_name(i);
-	//	printf("##########before unlink############\n");
-		//fflush(stdout);
 		sem_unlink(sem_name);
-		//printf("after unlink\n");
-	//	fflush(stdout);
 		free(sem_name);
 		i++;
 	}

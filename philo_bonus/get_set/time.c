@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 11:59:45 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:53:26 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 {
 	int	res;
 
-	// printf("getting or setting time\nwaiting for sem /philo_%i\n", philo->id);
-	// fflush(stdout);
+
 	sem_wait(philo->sem);
-	// printf("acquired sem /philo_%i\n", philo->id);
-	// fflush(stdout);
 	res = 0;
 	if (get_set == TIMES_EATEN_THIS_ROUND)
 		res = philo->meta->times_eaten_this_round;

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:59:19 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,14 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 {
 	t_philosopher	*philosopher;
 	char			*sem_name;
-	// printf("init_philospher\n");
-	// fflush(stdout);
 
-	sem_name = create_sem_name(count); // done
+	sem_name = create_sem_name(count);
 	if (sem_name == NULL)
 		return (NULL);
 	philosopher = NULL;
 	if (slim_calloc((void **)&philosopher, sizeof(t_philosopher)) == 0)
 	{
-		if (init_semaphore(&(philosopher->sem), sem_name, 1) != 0) //done
+		if (init_semaphore(&(philosopher->sem), sem_name, 1) != 0)
 		{
 			free(sem_name);
 			free(philosopher);
@@ -83,9 +81,7 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->status = THINKING;
 		philosopher->id = count;
 		philosopher->meta = params;
-		philosopher->order = count % 2; //[rpbs not needed]
-		// if (philosopher->meta->philosopher_count == count) //probs not needed
-		// 	philosopher->order = LAST_GROUP;
+		philosopher->order = count % 2;
 		philosopher->last_meal_ms = philosopher->meta->start_time;
 	}
 	free(sem_name);
@@ -116,4 +112,3 @@ int	init_main_semaphores(t_parameters *params)
 	}
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:01:16 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 10:03:00 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:59:20 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ char	*create_sem_name(int id)
 		res = ft_strjoin("/philo_", id_str);
 		if (res != NULL)
 		{
-		//	printf("res is %s\n", res);
 			free(id_str);
-		//	printf("freeing idstr\n");
 			return (res);
 		}
 		free(id_str);
@@ -75,7 +73,4 @@ void	set_eating_limits(int argc, char **argv, t_parameters *params)
 		params->eating_limit = -1;
 		params->ttl_eating_limit = -1;
 	}
-	// params->odd_eating_threshold = params->philosopher_count / 2;
-	// params->even_eating_threshold = params->odd_eating_threshold * 2;
-	// params->last_eating_threshold = params->philosopher_count;
 }

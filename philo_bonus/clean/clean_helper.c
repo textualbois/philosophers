@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:18:42 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/04 09:56:30 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:57:12 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	destroy_semaphore(sem_t *sem, const char *name)
 		exit(EXIT_FAILURE);
 }
 
-void	clean_params(t_parameters **params) //todo
+void	clean_params(t_parameters **params)
 {
 	free((*params)->watcher);
 	destroy_semaphore((*params)->time, "/time");

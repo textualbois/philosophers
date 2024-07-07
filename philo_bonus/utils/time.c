@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:03:08 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/04 07:00:48 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 13:56:52 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ int	time_without_food(t_philosopher *philo)
 	int last_meal;
 
 	sem_wait(philo->sem);
-	// printf("under philo->sem lock to get last meal time\n");
-	// fflush(stdout);
 	last_meal = philo->last_meal_ms;
 	sem_post(philo->sem);
-	// printf("releasing philo->sem lock after getting last meal time\n");
 	time_now = time_in_ms();
 	return (time_now - last_meal);
 }

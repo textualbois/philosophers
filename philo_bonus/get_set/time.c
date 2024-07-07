@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:53:26 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 14:06:12 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 {
 	int	res;
-
 
 	sem_wait(philo->sem);
 	res = 0;
@@ -28,8 +27,6 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 	else if (get_set == TIMES_EATEN)
 		res = philo->times_eaten;
 	sem_post(philo->sem);
-	// printf("released sem /philo_%i\n", philo->id);
-	// fflush(stdout);
 	return (res);
 }
 

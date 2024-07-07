@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:18:42 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 17:15:52 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 17:16:22 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	clean_params(t_parameters **params)
 	death = sem_open("/death", 0);
 	if (death != SEM_FAILED)
 	{
-		sen_close(death);
+		sem_close(death);
 		sem_unlink("/death");
 	}
 	free(*params);

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:19:38 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:39:34 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	set_all(t_philosopher *philo, int increment)
 		philo->meta->times_eaten_this_round = 0;
 	if (philo->times_eaten == philo->meta->eating_limit)
 		philo->meta->satiated_philos_count++;
-
+	if (philo->meta->eating_limit == 0)
+		philo->meta->satiated_philos_count++;
 }
 
 int	get_set_time(int get_set, t_philosopher *philo, int	increment)

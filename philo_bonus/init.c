@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 14:05:20 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:36:51 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,42 @@ t_parameters	*init_parameters(int argc, char **argv)
 		}
 		params->start_time = time_in_ms();
 	}
-
 	return (params);
 }
 
-t_philosopher	*init_philosopher(int count, t_parameters *params)
+t_philosopher	*init_philosopher(t_parameters *params)
 {
 	t_philosopher	*philosopher;
+
+	philosopher = NULL;
+	if (slim_calloc((void **)&philosopher, sizeof(t_philosopher)) == 0)
+	{
+		philosopher->status = THINKING;
+		philosopher->meta = params;
+	}
+	return (philosopher);
+}
+
+
+int	init_philo_id(int count, t_philosopher **philosopher)
+{
 	char			*sem_name;
 
 	sem_name = create_sem_name(count);
 	if (sem_name == NULL)
-		return (NULL);
-	philosopher = NULL;
-	if (slim_calloc((void **)&philosopher, sizeof(t_philosopher)) == 0)
 	{
-		if (init_semaphore(&(philosopher->sem), sem_name, 1) != 0)
-		{
-			free(sem_name);
-			free(philosopher);
-			return (NULL);
-		}
-		philosopher->status = THINKING;
-		philosopher->id = count;
-		philosopher->meta = params;
-		philosopher->order = count % 2;
-		philosopher->last_meal_ms = philosopher->meta->start_time;
+		return (-1);
 	}
+	if (init_semaphore(&(*philosopher)->sem, sem_name, 1) != 0)
+	{
+		free(sem_name);
+		return (-1);
+	}
+	(*philosopher)->id = count;
+	(*philosopher)->order = count % 2;
+	(*philosopher)->last_meal_ms = (*philosopher)->meta->start_time;
 	free(sem_name);
-	return (philosopher);
+	return (0);
 }
 
 int	init_main_semaphores(t_parameters *params)

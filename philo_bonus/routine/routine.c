@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/07 13:56:00 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:44:17 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ static void	*start_philo(t_parameters *params, int id)
 {
 	t_philosopher *philo;
 
-	philo = init_philosopher(id, params);
-	if (philo == NULL)
+	philo = params->philo;
+	// printf("here\n");
+	if (init_philo_id(id, &philo) != 0)
 		exit(1);
+	// printf("philo id is %i\n", philo->id);
 	if (pthread_create(philo->meta->watcher, NULL, watcher_routine, (void *)philo) != 0)
 		exit(1);
 	philosopher_routine(philo);
@@ -30,16 +32,21 @@ static void	*start_philo(t_parameters *params, int id)
 
 static void	*philosopher_routine(t_philosopher *philo)
 {
-	while (any_deaths(philo->meta->death_watcher) == false)
+	while (true)
 	{
-		think(philo);
-		pick_up_forks(philo);
-		eat(philo);
+		if (think(philo) != 0)
+			break ;
+		if (pick_up_forks(philo) != 0)
+			break ;
+		if (eat(philo) != 0)
+			break ;
 		put_down_forks(philo);
 		if (philo_full(philo) == true)
 			break ;
-		philo_sleep(philo);
+		if (philo_sleep(philo) != 0)
+			break ;
 	}
+	// printf("woooo\n");
 	sem_close(philo->sem);
 	return (NULL);
 }
@@ -49,13 +56,15 @@ static void	*watcher_routine(void *arg)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *) arg;
-	while (any_deaths(philo->meta->death_watcher) == false)
+	// while (any_deaths(philo->meta->death_watcher) == false)
+	while (1)
 	{
 		if (has_starved(philo))
 		{
 			register_death(philo);
+				break;
 		}
-		usleep(3000);
+		usleep(1000);
 	}
 	return (NULL);
 }

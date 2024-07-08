@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 17:24:50 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:08:59 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,15 @@ void	*register_death(t_philosopher *philo)
 	return (NULL);
 }
 
-int	any_deaths(sem_t *lock)
+int	any_deaths()
 {
 	sem_t	*death;
 
-	sem_wait(lock);
 	death = sem_open("/death", 0);
 	if (death == SEM_FAILED)
 	{
-		sem_post(lock);
 		return (false);
 	}
 	sem_close(death);
-	sem_post(lock);
 	return (true);
 }

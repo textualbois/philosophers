@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 14:05:20 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:41:39 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static int	bad_input(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_parameters	*params;
-	int				res;
 
 	unlink_all();
 	if (bad_input(argc, argv))
@@ -83,15 +82,20 @@ int	main(int argc, char **argv)
 	params = init_parameters(argc, argv);
 	if (params != NULL)
 	{
-		res = run_routines(params);
-		if (res == 1)
+		params->philo = init_philosopher(params);
+		if (params->philo != NULL)
 		{
+			if (run_routines(params) == 1)
+			{
+				clean_params(&params);
+				return (1);
+			}
 			clean_params(&params);
-			return (1);
+			return (0);
 		}
 	}
 	else
 		return (1);
 	clean_params(&params);
-	return (0);
+	return (1);
 }

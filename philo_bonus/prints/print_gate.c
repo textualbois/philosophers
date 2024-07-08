@@ -6,16 +6,16 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:00:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 17:20:09 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:09:35 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	print_action(int action, t_philosopher *philo)
+int	print_action(int action, t_philosopher *philo)
 {
 	sem_wait(philo->meta->printer);
-	if (any_deaths(philo->meta->death_watcher) == false)
+	if (any_deaths() == false)
 	{
 		if (action == THINKING)
 			print_thinking(philo);
@@ -25,6 +25,8 @@ void	print_action(int action, t_philosopher *philo)
 			print_eating(philo);
 		else if (action == SLEEPING)
 			print_sleeping(philo);
+		sem_post(philo->meta->printer);
+		return (0);
 	}
 	else if (action == DEATH)
 	{
@@ -32,4 +34,5 @@ void	print_action(int action, t_philosopher *philo)
 		usleep(200);
 	}
 	sem_post(philo->meta->printer);
+	return (-1);
 }

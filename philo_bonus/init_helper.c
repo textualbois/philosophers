@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:01:16 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:59:20 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:43:22 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*create_sem_name(int id)
 		if (res != NULL)
 		{
 			free(id_str);
+			// printf("sem is %s\n", res);
 			return (res);
 		}
 		free(id_str);

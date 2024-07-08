@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/04 10:01:47 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:29:41 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_parameters {
 	int				start_time;
 	int				light;
 	int				times_eaten_this_round;
+	t_philosopher	*philo;
 	sem_t			*time;
 	sem_t			*death_watcher;
 	sem_t			*printer;
@@ -101,20 +102,20 @@ int				get_order(t_philosopher *philo);
 int				has_starved(t_philosopher *philo);
 int				philo_dead(t_philosopher *philo);
 void			*register_death(t_philosopher *philo);
-int				any_deaths(sem_t *lock);
+int				any_deaths(void);
 
 // ./philo/philo_activities/eating_helpers.c
 int				philo_full(t_philosopher *philo);
 
 // ./philo/philo_activities/philo_activities.c
-void			think(t_philosopher *philo);
-void			pick_up_forks(t_philosopher *philo);
-void			eat(t_philosopher *philo);
+int				think(t_philosopher *philo);
+int				pick_up_forks(t_philosopher *philo);
+int				eat(t_philosopher *philo);
 void			put_down_forks(t_philosopher *philo);
-void			philo_sleep(t_philosopher *philo);
+int				philo_sleep(t_philosopher *philo);
 
 // ./philo/prints/print_gate.c
-void			print_action(int action, t_philosopher *philo);
+int				print_action(int action, t_philosopher *philo);
 
 // ./philo/prints/print_statements.c
 void			print_thinking(t_philosopher *philo);
@@ -153,7 +154,8 @@ void			set_eating_limits(int argc, char **argv, t_parameters *params);
 
 // ./philo/init.c
 t_parameters	*init_parameters(int argc, char **argv);
-t_philosopher	*init_philosopher(int count, t_parameters *params);
+t_philosopher	*init_philosopher(t_parameters *params);
+int				init_philo_id(int count, t_philosopher **philosopher);
 t_philosopher	*init_threads(t_parameters *params);
 t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params);
 int				init_main_semaphores(t_parameters *params);

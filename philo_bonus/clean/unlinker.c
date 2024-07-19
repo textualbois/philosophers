@@ -6,13 +6,13 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:48:58 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 17:07:37 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:47:55 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void unlink_all(void)
+void	unlink_all(void)
 {
 	int		i;
 	char	*sem_name;

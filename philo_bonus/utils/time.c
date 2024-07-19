@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:03:08 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:56:52 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 00:01:11 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	time_from_start(t_parameters *params)
 int	time_without_food(t_philosopher *philo)
 {
 	int	time_now;
-	int last_meal;
+	int	last_meal;
 
 	sem_wait(philo->sem);
 	last_meal = philo->last_meal_ms;

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 23:01:16 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 18:43:22 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:23:04 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*create_sem_name(int id)
 		if (res != NULL)
 		{
 			free(id_str);
-			// printf("sem is %s\n", res);
 			return (res);
 		}
 		free(id_str);
@@ -38,9 +37,7 @@ int	init_semaphore(sem_t **sem, const char *name, int init_value)
 	if (*sem == SEM_FAILED)
 	{
 		printf("sem %s failed\n", name);
-		fflush(stdout);
 		return (1);
-
 	}
 	return (0);
 }
@@ -67,7 +64,7 @@ void	set_eating_limits(int argc, char **argv, t_parameters *params)
 	if (argc == 6)
 	{
 		params->eating_limit = ft_atoi(argv[5]);
-		params->ttl_eating_limit = params->eating_limit * params->philosopher_count;
+		params->ttl_eating_limit = params->eating_limit * params->philo_count;
 	}
 	else
 	{

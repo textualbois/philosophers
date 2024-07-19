@@ -6,12 +6,12 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 17:20:22 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 00:02:29 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <stdio.h>
 # include <pthread.h>
@@ -50,7 +50,7 @@
 typedef struct s_philosopher	t_philosopher;
 
 typedef struct s_parameters {
-	int				philosopher_count;
+	int				philo_count;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -82,7 +82,7 @@ struct s_philosopher {
 };
 
 // ./philo/clean/main_clean.c
-int 			kill_kids(pid_t **kids, int start_from);
+int				kill_kids(pid_t **kids, int start_from);
 t_philosopher	*clean_philo_return_previous(t_philosopher *philo);
 t_philosopher	*clean_philo_return_next(t_philosopher *philo);
 void			*full_clean(t_philosopher *head);
@@ -93,10 +93,10 @@ void			destroy_semaphore(sem_t *sem, const char *name);
 void			clean_params(t_parameters **params);
 
 // ./philo/clean/unlinker.c
-void 			unlink_all(void);
+void			unlink_all(void);
 
 // ./philo/get_set/time.c
-int				get_set_time(int get_set, t_philosopher *philo, int	increment);
+int				get_set_time(int get_set, t_philosopher *philo, int increment);
 
 // ./philo/get_set/order.c
 int				get_order(t_philosopher *philo);
@@ -110,7 +110,6 @@ int				any_deaths(void);
 // ./philo/philo_activities/eating_helpers.c
 int				philo_full(t_philosopher *philo);
 void			is_philo_full(t_philosopher *philo);
-
 
 // ./philo/philo_activities/philo_activities.c
 int				think(t_philosopher *philo);
@@ -166,7 +165,8 @@ t_parameters	*init_parameters(int argc, char **argv);
 t_philosopher	*init_philosopher(t_parameters *params);
 int				init_philo_id(int count, t_philosopher **philosopher);
 t_philosopher	*init_threads(t_parameters *params);
-t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params);
+t_philosopher	*init_and_join(t_philosopher *temp, \
+								int *count, t_parameters *params);
 int				init_main_semaphores(t_parameters *params);
 
 #endif

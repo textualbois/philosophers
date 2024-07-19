@@ -6,13 +6,13 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 14:06:12 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:48:11 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	get_set_time(int get_set, t_philosopher *philo, int	increment)
+int	get_set_time(int get_set, t_philosopher *philo, int increment)
 {
 	int	res;
 
@@ -29,4 +29,3 @@ int	get_set_time(int get_set, t_philosopher *philo, int	increment)
 	sem_post(philo->sem);
 	return (res);
 }
-

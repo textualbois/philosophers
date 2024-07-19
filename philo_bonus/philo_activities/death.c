@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 18:08:59 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:20:58 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	philo_dead(t_philosopher *philo)
 void	*register_death(t_philosopher *philo)
 {
 	sem_t	*death;
+
 	sem_wait(philo->meta->death_watcher);
 	death = sem_open("/death", 0);
 	if (death == SEM_FAILED)
@@ -38,7 +39,7 @@ void	*register_death(t_philosopher *philo)
 	return (NULL);
 }
 
-int	any_deaths()
+int	any_deaths(void)
 {
 	sem_t	*death;
 

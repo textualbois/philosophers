@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 18:36:51 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:53:06 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,17 @@ t_parameters	*init_parameters(int argc, char **argv)
 			free(params);
 			return (NULL);
 		}
+		if (slim_malloc((void**)&(params->bouncer), sizeof(pthread_t)) != 0)
+		{
+			free(params->watcher);
+			free(params);
+			return (NULL);
+		}
 		else if (init_main_semaphores(params) != 0)
 		{
 			free(params);
 			free(params->watcher);
+			free(params->bouncer);
 			return (NULL);
 		}
 		params->start_time = time_in_ms();

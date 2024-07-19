@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/07 18:44:17 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 18:13:06 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	*philosopher_routine(t_philosopher *philo)
 		if (eat(philo) != 0)
 			break ;
 		put_down_forks(philo);
-		if (philo_full(philo) == true)
-			break ;
+		// if (philo_full(philo) == true)
+		// 	break ;
 		if (philo_sleep(philo) != 0)
 			break ;
 	}
@@ -73,10 +73,13 @@ int	run_routines(t_parameters *params)
 {
 	pid_t	pid;
 	int		philo_id;
-	pid_t	*kids;
 
-	if (slim_calloc((void**)&kids, sizeof(pid_t) * params->philosopher_count) != 0)
+	if (slim_calloc((void**)&(params->kids), sizeof(pid_t) * params->philosopher_count) != 0)
 		return (1);
+	printf("kids allocated\n");
+	if (pthread_create(params->bouncer, NULL, bouncer_routine, (void *)params) != 0)
+		exit(1);
+	printf("bouncer thread ready\n");
 	philo_id = 1;
 	params->start_time = time_in_ms();
 	while (philo_id <= params->philosopher_count)
@@ -85,14 +88,15 @@ int	run_routines(t_parameters *params)
 		if (pid == CHILD)
 			start_philo(params, philo_id);
 		else if (pid == -1)
-			return (kill_kids(&kids, philo_id - 2));
+			return (kill_kids(&params->kids, philo_id - 2));
 		else
-			kids[philo_id - 1] = pid;
+			params->kids[philo_id - 1] = pid;
 		philo_id++;
 	}
-	free(kids);
+	//free(params->kids);
 	pid = waitpid(0, NULL, 0);
 	while (pid != -1)
 		pid = waitpid(0, NULL, 0);
+	//free(params->kids);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 05:19:35 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/08 12:33:26 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:18:17 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,10 @@ int	philo_full(t_philosopher *philo)
 		return (false);
 	else
 		return (philo->times_eaten >= philo->meta->eating_limit);
+}
+
+void	is_philo_full(t_philosopher *philo)
+{
+	if (philo->times_eaten == philo->meta->eating_limit)
+		sem_post(philo->meta->bouncer_sem);
 }

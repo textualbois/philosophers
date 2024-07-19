@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/07 17:55:22 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:13:39 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	eat(t_philosopher *philo)
 	}
 	sem_post(philo->sem);
 	get_set_time(SET, philo, 1);
+	is_philo_full(philo);
 	sleep_ms(philo->meta->time_to_eat);
 	return (0);
 }

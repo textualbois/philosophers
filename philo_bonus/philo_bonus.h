@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 18:29:41 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:20:22 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ typedef struct s_parameters {
 	int				start_time;
 	int				light;
 	int				times_eaten_this_round;
+	pid_t			*kids;
 	t_philosopher	*philo;
+	pthread_t		*bouncer;
+	sem_t			*bouncer_sem;
 	sem_t			*time;
 	sem_t			*death_watcher;
 	sem_t			*printer;
@@ -106,6 +109,8 @@ int				any_deaths(void);
 
 // ./philo/philo_activities/eating_helpers.c
 int				philo_full(t_philosopher *philo);
+void			is_philo_full(t_philosopher *philo);
+
 
 // ./philo/philo_activities/philo_activities.c
 int				think(t_philosopher *philo);
@@ -126,6 +131,10 @@ void			print_death(t_philosopher *philo);
 
 // ./philo/routine/routine.c
 int				run_routines(t_parameters *params);
+
+// ./philo/routine/bouncer.c
+void			*bouncer_routine(void *arg);
+void			r_u_full(t_parameters *params);
 
 // ./philo/utils/str.c
 size_t			ft_strlen(const char *s);
@@ -159,6 +168,5 @@ int				init_philo_id(int count, t_philosopher **philosopher);
 t_philosopher	*init_threads(t_parameters *params);
 t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params);
 int				init_main_semaphores(t_parameters *params);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:48:58 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 14:04:44 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:07:37 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void unlink_all(void)
 	sem_unlink("/print");
 	sem_unlink("/time");
 	sem_unlink("/death");
+	sem_unlink("/bouncer");
 }

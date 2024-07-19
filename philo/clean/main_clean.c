@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_clean.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivansemin <ivansemin@student.42.fr>        +#+  +:+       +#+        */
+/*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 21:45:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/06/28 18:43:26 by ivansemin        ###   ########.fr       */
+/*   Updated: 2024/07/19 23:38:45 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	clean_params(t_philosopher *head)
 
 t_philosopher	*clean_philo_return_previous(t_philosopher *philo)
 {
-	t_philosopher *prev;
+	t_philosopher	*prev;
 
 	prev = philo->last;
 	free(philo->thread);
@@ -33,7 +33,7 @@ t_philosopher	*clean_philo_return_previous(t_philosopher *philo)
 
 t_philosopher	*clean_philo_return_next(t_philosopher *philo)
 {
-	t_philosopher *next;
+	t_philosopher	*next;
 
 	next = philo->next;
 	free(philo->thread);
@@ -44,7 +44,7 @@ t_philosopher	*clean_philo_return_next(t_philosopher *philo)
 
 void	*full_clean(t_philosopher *head)
 {
-	t_philosopher *temp;
+	t_philosopher	*temp;
 
 	temp = head->next;
 	if (temp == NULL)

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/08 12:39:34 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:39:16 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	set_all(t_philosopher *philo, int increment)
 		philo->meta->satiated_philos_count++;
 }
 
-int	get_set_time(int get_set, t_philosopher *philo, int	increment)
+int	get_set_time(int get_set, t_philosopher *philo, int increment)
 {
 	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 	int						res;

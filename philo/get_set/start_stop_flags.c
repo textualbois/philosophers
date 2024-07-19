@@ -6,13 +6,13 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 09:07:38 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 12:29:03 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:39:03 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	allowed_to_continue(int	get_set, int new_val)
+int	allowed_to_continue(int get_set, int new_val)
 {
 	static pthread_mutex_t	light_checker = PTHREAD_MUTEX_INITIALIZER;
 	static int				go_stop;

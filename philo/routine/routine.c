@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/08 12:36:00 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 00:39:14 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	*philosopher_routine(void *arg)
 
 	phil = (t_philosopher *) arg;
 	while (allowed_to_continue(GET, 0) == STOP)
-		continue;
+		continue ;
 	while (allowed_to_continue(GET, 0) == GO)
 	{
 		think(phil);
@@ -55,7 +55,7 @@ static void	*watcher_routine(void *arg)
 				return (register_death(temp));
 			temp = temp->next;
 		}
-		if (get_set_time(FULL_COUNT, head, 0) == head->meta->philosopher_count)
+		if (get_set_time(FULL_COUNT, head, 0) == head->meta->philo_count)
 			return (allowed_to_continue(SET, STOP), NULL);
 		usleep(100);
 	}
@@ -84,14 +84,17 @@ void	*run_routines(t_philosopher *head)
 	temp = head;
 	allowed_to_continue(SET, STOP);
 	pthread_mutex_lock(head->meta->global_mtx);
-	if (pthread_create(head->meta->watcher, NULL, watcher_routine, (void *)head) != 0)
+	if (pthread_create(head->meta->watcher, NULL, \
+		watcher_routine, (void *)head) != 0)
 		return (full_clean(head));
-	if (pthread_create(temp->thread, NULL, philosopher_routine, (void *)temp) != 0)
+	if (pthread_create(temp->thread, NULL, \
+		philosopher_routine, (void *)temp) != 0)
 		return (full_clean(head));
 	temp = temp->next;
 	while (temp != head)
 	{
-		if (pthread_create(temp->thread, NULL, philosopher_routine, (void *)temp) != 0)
+		if (pthread_create(temp->thread, NULL, \
+			philosopher_routine, (void *)temp) != 0)
 			return (full_clean(head));
 		temp = temp->next;
 	}

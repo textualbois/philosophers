@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:38:33 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 07:35:03 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:42:54 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	extra_check(int argc, char **argv)
 
 static int	bad_input(int argc, char **argv)
 {
-	int i;
+	int	i;
 	int	p;
 
 	if (argc == 5 || argc == 6)
@@ -43,7 +43,7 @@ static int	bad_input(int argc, char **argv)
 		while (i < argc)
 		{
 			p = 0;
-			while(argv[i][p] != '\0')
+			while (argv[i][p] != '\0')
 			{
 				if (ft_isdigit((int)argv[i][p]) == 0)
 				{
@@ -61,9 +61,8 @@ static int	bad_input(int argc, char **argv)
 	return (1);
 }
 
-/**
- * @brief spwans threads (philosophers) that interact with each other certain parameters
- *
+/** * @brief spwans threads (philosophers) that
+ * interact with each other certain parameters
  * @param argc
  * @param argv[1] number_of_philosophers
  * @param argv[2] time_to_die

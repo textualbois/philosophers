@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 12:04:19 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:41:57 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ t_parameters	*init_parameters(int argc, char **argv)
 	t_parameters	*params;
 
 	params = NULL;
-	if (slim_calloc((void**)&params, sizeof(t_parameters)) == 0)
+	if (slim_calloc((void **)&params, sizeof(t_parameters)) == 0)
 	{
-		params->philosopher_count = ft_atoi(argv[1]);
+		params->philo_count = ft_atoi(argv[1]);
 		params->time_to_die = ft_atoi(argv[2]);
 		params->time_to_eat = ft_atoi(argv[3]);
 		params->time_to_sleep = ft_atoi(argv[4]);
 		set_eating_limits(argc, argv, params);
-		if (slim_malloc((void**)&(params->watcher), sizeof(pthread_t)) != 0)
+		if (slim_malloc((void **)&(params->watcher), sizeof(pthread_t)) != 0)
 		{
 			free(params);
 			return (NULL);
@@ -57,7 +57,8 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 	philosopher = NULL;
 	if (slim_calloc((void **)&philosopher, sizeof(t_philosopher)) == 0)
 	{
-		if (slim_calloc((void **)&(philosopher->thread), sizeof(pthread_t)) != 0)
+		if (slim_calloc((void **)&(philosopher->thread), \
+			sizeof(pthread_t)) != 0)
 		{
 			free(philosopher);
 			return (NULL);
@@ -67,11 +68,10 @@ t_philosopher	*init_philosopher(int count, t_parameters *params)
 		philosopher->status = THINKING;
 		philosopher->times_eaten = 0;
 		philosopher->last_meal_ms = 0;
-		//philosopher->last_meal_ms = params->start_time;
 		philosopher->id = count;
 		philosopher->meta = params;
 		philosopher->order = count % 2;
-		if (philosopher->meta->philosopher_count == count && count % 2 == 1)
+		if (philosopher->meta->philo_count == count && count % 2 == 1)
 			philosopher->order = LAST_GROUP;
 	}
 	return (philosopher);
@@ -107,7 +107,7 @@ t_philosopher	*init_threads(t_parameters *params)
 	head->right_fork = init_fork(params, head);
 	count++;
 	temp = head;
-	while (count <= params->philosopher_count && temp != NULL)
+	while (count <= params->philo_count && temp != NULL)
 	{
 		temp = init_and_join(temp, &count, params);
 	}
@@ -120,7 +120,8 @@ t_philosopher	*init_threads(t_parameters *params)
 	return (head);
 }
 
-t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params)
+t_philosopher	*init_and_join(t_philosopher *temp, \
+							int *count, t_parameters *params)
 {
 	temp->right_fork->right_thread = init_philosopher(*count, params);
 	if (temp->right_fork->right_thread == NULL)

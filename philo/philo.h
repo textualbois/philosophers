@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 13:19:38 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:44:17 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@
 # define STOP 0
 # define GO -1
 
-
 typedef struct s_philosopher	t_philosopher;
 
 typedef struct s_parameters {
-	int				philosopher_count;
+	int				philo_count;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -107,10 +106,13 @@ void			*register_death(t_philosopher *philo);
 void			print_action(int action, t_philosopher *philo);
 
 // ./philo/prints/print_statements.c
-void			print_thinking(t_philosopher *philo, pthread_mutex_t *print_lock);
-void			print_taking_fork(t_philosopher *philo, pthread_mutex_t *print_lock);
+void			print_thinking(t_philosopher *philo, \
+								pthread_mutex_t *print_lock);
+void			print_taking_fork(t_philosopher *philo, \
+							pthread_mutex_t *print_lock);
 void			print_eating(t_philosopher *philo, pthread_mutex_t *print_lock);
-void			print_sleeping(t_philosopher *philo, pthread_mutex_t *print_lock);
+void			print_sleeping(t_philosopher *philo, \
+								pthread_mutex_t *print_lock);
 void			print_death(t_philosopher *philo, pthread_mutex_t *print_lock);
 
 // ./philo/routine/routine.c
@@ -133,7 +135,8 @@ t_parameters	*init_parameters(int argc, char **argv);
 t_philosopher	*init_philosopher(int count, t_parameters *params);
 t_fork			*init_fork(t_parameters *params, t_philosopher *owner);
 t_philosopher	*init_threads(t_parameters *params);
-t_philosopher	*init_and_join(t_philosopher *temp, int *count, t_parameters *params);
+t_philosopher	*init_and_join(t_philosopher *temp, \
+								int *count, t_parameters *params);
 
 // ./philo/init_helper.c
 int				init_mutex(pthread_mutex_t **res);
@@ -148,14 +151,11 @@ void			*full_clean(t_philosopher *head);
 void			clean_params(t_philosopher *head);
 
 // ./philo/get_set/time.c
-int				get_set_time(int get_set, t_philosopher *philo, int	increment);
+int				get_set_time(int get_set, t_philosopher *philo, int increment);
 
 // ./philo/get_set/order.c
 int				get_order(t_philosopher *philo);
 
 // ./philo/get_set/start_stop_flags.c
-int				allowed_to_continue(int	get_set, int new_val);
-
-
-
+int				allowed_to_continue(int get_set, int new_val);
 #endif

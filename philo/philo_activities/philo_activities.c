@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/07 12:42:33 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/19 23:39:51 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ int	pick_up_forks(t_philosopher *philo)
 
 void	eat(t_philosopher *philo)
 {
-//	pthread_mutex_lock(philo->meta->global_mtx);
 	get_set_time(SET, philo, 1);
 	print_action(EATING, philo);
 	sleep_ms(philo->meta->time_to_eat);
-//	pthread_mutex_unlock(philo->meta->global_mtx);
 }
 
 void	put_down_forks(t_philosopher *philo)
@@ -48,9 +46,6 @@ void	put_down_forks(t_philosopher *philo)
 
 void	philo_sleep(t_philosopher *philo)
 {
-
-	//pthread_mutex_lock(philo->meta->global_mtx);
 	print_action(SLEEPING, philo);
-	//pthread_mutex_unlock(philo->meta->global_mtx);
 	sleep_ms(philo->meta->time_to_sleep);
 }

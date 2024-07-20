@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 23:20:58 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 04:38:37 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	*register_death(t_philosopher *philo)
 	if (death == SEM_FAILED)
 	{
 		sem_open("/death", O_CREAT, 0644, 0);
-		sem_post(philo->meta->death_watcher);
 		philo_dead(philo);
+		sem_post(philo->meta->death_watcher);
 	}
 	sem_post(philo->meta->death_watcher);
 	return (NULL);

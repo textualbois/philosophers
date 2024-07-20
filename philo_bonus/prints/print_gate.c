@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:00:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/07 18:09:35 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 04:36:00 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	print_action(int action, t_philosopher *philo)
 	else if (action == DEATH)
 	{
 		print_death(philo);
-		usleep(200);
+		usleep(100000);
 	}
 	sem_post(philo->meta->printer);
-	return (-1);
+	return (0);
 }

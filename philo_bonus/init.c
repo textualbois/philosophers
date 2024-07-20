@@ -6,13 +6,13 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:01:53 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/20 00:16:56 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 03:02:14 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static int	init_threads(t_parameters *params)
+int	init_threads(t_parameters *params)
 {
 	if (slim_malloc((void **)&(params->watcher), sizeof(pthread_t)) != 0)
 	{

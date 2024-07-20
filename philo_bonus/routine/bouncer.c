@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:01:30 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 23:20:29 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 04:15:44 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	kick_them_out(t_parameters *params)
 {
-	kill_kids(&params->kids, params->philo_count - 1);
-	printf("kids are dead\n");
+	kill_kids(&params->kids, params->philo_count - 1, 0);
 }
 
 void	*bouncer_routine(void *data)

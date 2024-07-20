@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/20 00:02:29 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 04:15:27 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ struct s_philosopher {
 };
 
 // ./philo/clean/main_clean.c
-int				kill_kids(pid_t **kids, int start_from);
+int				kill_kids(pid_t **kids, int start_from, int res);
+int				kill_kids_except(pid_t **kids, int start_from, pid_t pid);
 t_philosopher	*clean_philo_return_previous(t_philosopher *philo);
 t_philosopher	*clean_philo_return_next(t_philosopher *philo);
 void			*full_clean(t_philosopher *head);
@@ -164,7 +165,7 @@ void			set_eating_limits(int argc, char **argv, t_parameters *params);
 t_parameters	*init_parameters(int argc, char **argv);
 t_philosopher	*init_philosopher(t_parameters *params);
 int				init_philo_id(int count, t_philosopher **philosopher);
-t_philosopher	*init_threads(t_parameters *params);
+int				init_threads(t_parameters *params);
 t_philosopher	*init_and_join(t_philosopher *temp, \
 								int *count, t_parameters *params);
 int				init_main_semaphores(t_parameters *params);

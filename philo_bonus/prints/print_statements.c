@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:49:56 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/03 08:07:47 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 03:35:53 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	print_death(t_philosopher *philo)
 
 	timestamp = time_from_start(philo->meta);
 	printf("%d %d died\n", timestamp, philo->id);
+	//kill_kids(&philo->meta->kids, philo->meta->philo_count - 1);
 }

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/20 01:15:01 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 04:26:08 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static void	*start_philo(t_parameters *params, int id)
 	if (pthread_create(philo->meta->watcher, \
 		NULL, watcher_routine, (void *)philo) != 0)
 		exit(1);
-	philosopher_routine(philo);
-	exit(0);
+	pthread_detach(*philo->meta->watcher);
+	if (philosopher_routine(philo) == NULL)
+		exit(0);
+	exit(1);
 }
 
 static void	*philosopher_routine(t_philosopher *philo)
@@ -43,6 +45,7 @@ static void	*philosopher_routine(t_philosopher *philo)
 		if (philo_sleep(philo) != 0)
 			break ;
 	}
+	printf("exited philosopher routine philo %i\n", philo->id);
 	sem_close(philo->sem);
 	return (NULL);
 }
@@ -57,22 +60,24 @@ static void	*watcher_routine(void *arg)
 		if (has_starved(philo))
 		{
 			register_death(philo);
-			break;
+			exit(0);
 		}
 		usleep(1000);
 	}
 	return (NULL);
 }
 
-static int	fork_loop(t_parameters *params, int philo_id, pid_t pid)
+static int	fork_loop(t_parameters *params, int philo_id)
 {
+	pid_t	pid;
+
 	while (philo_id <= params->philo_count)
 	{
 		pid = fork();
 		if (pid == CHILD)
 			start_philo(params, philo_id);
 		else if (pid == -1)
-			return (kill_kids(&params->kids, philo_id - 2));
+			return (kill_kids(&params->kids, philo_id - 2, 1));
 		else
 			params->kids[philo_id - 1] = pid;
 		philo_id++;
@@ -93,10 +98,16 @@ int	run_routines(t_parameters *params)
 		exit(1);
 	philo_id = 1;
 	params->start_time = time_in_ms();
-	if (fork_loop(params, philo_id, pid) != 0)
+	if (fork_loop(params, philo_id) != 0)
 		exit (1);
 	pid = waitpid(0, NULL, 0);
-	while (pid != -1)
-		pid = waitpid(0, NULL, 0);
+	if (any_deaths() == true)
+		kill_kids_except(&params->kids, params->philo_count - 1, pid);
+	else
+	{
+		while (pid != -1)
+			pid = waitpid(0, NULL, 0);
+	}
+	unlink_all();
 	return (0);
 }

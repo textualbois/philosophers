@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:01:30 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/20 04:15:44 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 20:22:51 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*bouncer_routine(void *data)
 		sem_open("/bouncer", O_CREAT, 0644, params->philo_count);
 	if (params->bouncer_sem == SEM_FAILED)
 		exit(1);
-	while (i < params->philo_count)
+	while (i <= params->philo_count)
 	{
 		sem_wait(params->bouncer_sem);
 		i++;

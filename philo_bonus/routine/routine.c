@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/20 04:26:08 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/20 19:56:17 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	*philosopher_routine(t_philosopher *philo)
 		if (philo_sleep(philo) != 0)
 			break ;
 	}
-	printf("exited philosopher routine philo %i\n", philo->id);
 	sem_close(philo->sem);
 	return (NULL);
 }
@@ -101,6 +100,7 @@ int	run_routines(t_parameters *params)
 	if (fork_loop(params, philo_id) != 0)
 		exit (1);
 	pid = waitpid(0, NULL, 0);
+
 	if (any_deaths() == true)
 		kill_kids_except(&params->kids, params->philo_count - 1, pid);
 	else

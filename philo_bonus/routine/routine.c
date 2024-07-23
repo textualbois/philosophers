@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/20 20:04:09 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 20:46:53 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	*watcher_routine(void *arg)
 			register_death(philo);
 			exit(0);
 		}
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }

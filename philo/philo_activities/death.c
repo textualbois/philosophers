@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/23 17:39:11 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 20:38:56 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	philo_dead(t_philosopher *philo)
 void	*register_death(t_philosopher *philo)
 {
 	allowed_to_continue(SET, philo->id, SHORT_LOCK);
-	//printf("whatever\n");
 	philo_dead(philo);
 	return (NULL);
 }

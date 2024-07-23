@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/23 17:42:27 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 20:38:30 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	*philosopher_routine(void *arg)
 		put_down_forks(phil);
 		philo_sleep(phil);
 	}
-	printf("philo %d - done\n", phil->id);
 	return (NULL);
 }
 

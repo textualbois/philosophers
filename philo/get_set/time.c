@@ -6,15 +6,14 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:01:43 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 23:39:16 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:56:44 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	set_all(t_philosopher *philo, int increment)
+static void	incr_times_eaten(t_philosopher *philo, int increment)
 {
-	philo->last_meal_ms = time_in_ms();
 	philo->times_eaten += increment;
 	philo->meta->times_eaten_this_round += increment;
 	philo->meta->cum_times_eaten += increment;
@@ -39,7 +38,9 @@ int	get_set_time(int get_set, t_philosopher *philo, int increment)
 	else if (get_set == TIMES_EATEN_THIS_ROUND)
 		res = philo->meta->times_eaten_this_round;
 	else if (get_set == SET)
-		set_all(philo, increment);
+		philo->last_meal_ms = time_in_ms();
+	else if (get_set == INCR_TIMES_EATEN)
+		incr_times_eaten(philo, increment);
 	else if (get_set == FULL_COUNT)
 		res = philo->meta->satiated_philos_count;
 	else if (get_set == CUM_TIMES_EATEN)

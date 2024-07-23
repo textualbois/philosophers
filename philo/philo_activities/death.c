@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:23:32 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/23 20:38:56 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:35:41 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	has_starved(t_philosopher *philo)
 		last_meal = philo->meta->start_time;
 		get_set_time(SET_LAST_MEAL, philo, philo->meta->start_time);
 	}
-	return (time_without_food(last_meal) > philo->meta->time_to_die);
+	//printf("checking starved philo %d\n", philo->id);
+	return (time_without_food(last_meal) >= philo->meta->time_to_die);
 }
 
 int	philo_dead(t_philosopher *philo)

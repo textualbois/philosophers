@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:28:33 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/23 20:38:30 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:43:15 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	*watcher_routine(void *arg)
 		}
 		if (get_set_time(FULL_COUNT, head, 0) == head->meta->philo_count)
 			return (allowed_to_continue(SET, STOP, SHORT_LOCK), NULL);
-		usleep(100);
 	}
 	return (NULL);
 }

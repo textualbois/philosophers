@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 01:55:21 by ivansemin         #+#    #+#             */
-/*   Updated: 2024/07/19 23:39:51 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:52:23 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	eat(t_philosopher *philo)
 	get_set_time(SET, philo, 1);
 	print_action(EATING, philo);
 	sleep_ms(philo->meta->time_to_eat);
+	get_set_time(INCR_TIMES_EATEN, philo, 1);
 }
 
 void	put_down_forks(t_philosopher *philo)

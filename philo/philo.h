@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/23 20:14:17 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:50:35 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define LAST_MEAL 6
 # define SET_LAST_MEAL 7
 # define FULL_COUNT 8
+# define INCR_TIMES_EATEN 9
 # define ODD_GROUP 1
 # define EVEN_GROUP 0
 # define LAST_GROUP 2

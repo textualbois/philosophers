@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 18:00:26 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/05 11:28:45 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 17:45:47 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	print_action(int action, t_philosopher *philo)
 	static pthread_mutex_t	print_gate = PTHREAD_MUTEX_INITIALIZER;
 	int						go_on;
 
-	go_on = allowed_to_continue(GET, 0);
+
+	pthread_mutex_lock(&print_gate);
+	go_on = allowed_to_continue(GET, 0, LONG_LOCK);
 	if (go_on == GO)
 	{
 		if (action == THINKING)
@@ -32,5 +34,10 @@ void	print_action(int action, t_philosopher *philo)
 	else if (action == DEATH && go_on == philo->id)
 	{
 		print_death(philo, &print_gate);
+	}
+	else
+	{
+		printf("philo %d - not allowed to print\n", philo->id);
+		allowed_to_continue(0, 0, RELEASE_LOCK);
 	}
 }

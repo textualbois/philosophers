@@ -6,28 +6,34 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 09:07:38 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 23:39:03 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 17:36:17 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	allowed_to_continue(int get_set, int new_val)
+int	allowed_to_continue(int get_set, int new_val, int modifier)
 {
 	static pthread_mutex_t	light_checker = PTHREAD_MUTEX_INITIALIZER;
 	static int				go_stop;
 	int						res;
 
-	pthread_mutex_lock(&light_checker);
-	if (get_set == GET)
-		res = go_stop;
-	else if (get_set == SET)
+	if (modifier != RELEASE_LOCK)
 	{
-		go_stop = new_val;
-		res = go_stop;
+		pthread_mutex_lock(&light_checker);
+		if (get_set == GET)
+			res = go_stop;
+		else if (get_set == SET)
+		{
+			go_stop = new_val;
+			res = go_stop;
+		}
+		else
+			res = -1;
+		if (modifier != LONG_LOCK)
+			pthread_mutex_unlock(&light_checker);
+		return (res);
 	}
-	else
-		res = -1;
 	pthread_mutex_unlock(&light_checker);
-	return (res);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: isemin <isemin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:27:44 by isemin            #+#    #+#             */
-/*   Updated: 2024/07/19 23:44:17 by isemin           ###   ########.fr       */
+/*   Updated: 2024/07/23 17:14:10 by isemin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@
 # define LAST_GROUP 2
 # define STOP 0
 # define GO -1
+# define LONG_LOCK 1
+# define SHORT_LOCK 0
+# define RELEASE_LOCK 2
 
 typedef struct s_philosopher	t_philosopher;
 
@@ -157,5 +160,5 @@ int				get_set_time(int get_set, t_philosopher *philo, int increment);
 int				get_order(t_philosopher *philo);
 
 // ./philo/get_set/start_stop_flags.c
-int				allowed_to_continue(int get_set, int new_val);
+int				allowed_to_continue(int get_set, int new_val, int modifier);
 #endif
